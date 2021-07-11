@@ -34,9 +34,10 @@ export default styles = StyleSheet.create({
     height: h * 0.06,
     borderWidth: 0.7,
     opacity: 0.5,
+    paddingRight: w * 0.02,
 
     //paddingLeft: 10,
-    width: w * 0.82,
+    width: w * 0.86,
     borderRadius: w * 0.03,
     alignItems: 'center',
     flexDirection: 'row',
@@ -48,12 +49,52 @@ export default styles = StyleSheet.create({
 
     flex: 1,
   },
-
+  whitetext: {
+    color: Colors.mainWhite,
+    fontSize: Fonts.Sizes.eighteen,
+    fontFamily: Fonts.Families.bold,
+  },
+  button: {
+    backgroundColor: Colors.lightBlue,
+    //borderRadius: 20,
+    margin: w * 0.03,
+    height: h * 0.06,
+    marginTop: h * 0.04,
+    width: w * 0.86,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: w * 0.03,
+  },
+  blacktext: {
+    fontSize: Fonts.Sizes.twelve,
+    color: Colors.mainBlack,
+    fontWeight: 'bold',
+  },
+  shadytext: {
+    fontSize: Fonts.Sizes.twelve,
+    color: Colors.mainGray,
+    fontWeight: 'bold',
+  },
+  ortext: {
+    fontSize: Fonts.Sizes.twelve,
+    color: Colors.mainGray,
+    fontWeight: 'bold',
+    marginTop: w * 0.05,
+    marginBottom: w * 0.05,
+  },
+  bluetext: {
+    fontSize: Fonts.Sizes.twelve,
+    color: Colors.darkBlue,
+    fontWeight: 'bold',
+    marginTop: w * 0.05,
+    marginBottom: w * 0.05,
+  },
   smalltextscontainer: {
     height: h * 0.05,
     width: w * 0.9,
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'row',
   },
 
   signInButton: {
@@ -76,16 +117,6 @@ export default styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: h * 0.02,
   },
-  button: {
-    backgroundColor: 'purple',
-    //borderRadius: 20,
-    margin: w * 0.03,
-    height: h * 0.07,
-    marginTop: h * 0.04,
-    width: w * 0.8,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
 
   imagebig: {
     width: w,
@@ -93,9 +124,6 @@ export default styles = StyleSheet.create({
     resizeMode: 'contain',
     //aspectRatio: 1,
     //marginTop: w * 0.015, //borderRadius: w * 0.25,
-  },
-  text: {
-    color: 'white',
   },
 
   textinputcontainer: {

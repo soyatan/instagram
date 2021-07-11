@@ -7,4 +7,6 @@ export const Colors = {
   statusbarColor: '#4d5d53',
   mainBlue: '#293fb3',
   mainPurple: '#6e29b3',
+  lightBlue: '#C8EFFE',
+  darkBlue: '#59A3DC',
 };

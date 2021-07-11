@@ -6,7 +6,7 @@ import styles from './styles';
 export default AuthButton = ({label, onPress}) => {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Text style={styles.text}>{label}</Text>
+      <Text style={styles.whitetext}>{label}</Text>
     </TouchableOpacity>
   );
 };

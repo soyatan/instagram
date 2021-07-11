@@ -120,7 +120,6 @@ const SignInScreen = () => {
       <View style={styles.logocontainer}>
         <Text style={styles.logotext}>Instagram</Text>
       </View>
-
       <AuthInput
         label={'Phone number, email or username'}
         keyboardType={'email-address'}
@@ -137,26 +136,14 @@ const SignInScreen = () => {
         onEndEditing={validatePW}
         keyboardType={'default'}
       />
-
-      <View style={styles.errormessagecontainer}>
-        {user.errorMessage ? (
+      {user.errorMessage ? (
+        <View style={styles.errormessagecontainer}>
           <Text style={{fontSize: 16, color: 'red'}}>{user.errorMessage}</Text>
-        ) : null}
-      </View>
+        </View>
+      ) : null}
       {(isSignIn === 'none') | (isSignIn === 'sign in') ? (
         <>
-          <AuthButton label={'Login With Email'}></AuthButton>
-
-          <TouchableOpacity
-            onPress={() => {
-              switchToSignUp();
-              dispatch(setError(null));
-            }}
-            style={styles.smalltextscontainer}>
-            <Text style={{fontSize: 14, color: 'black', fontWeight: 'bold'}}>
-              Don't have an account? Sign Up
-            </Text>
-          </TouchableOpacity>
+          <AuthButton label={'Log In'}></AuthButton>
         </>
       ) : null}
       {isSignIn === 'sign up' ? (
@@ -175,8 +162,24 @@ const SignInScreen = () => {
         </>
       ) : null}
       <TouchableOpacity style={styles.smalltextscontainer}>
+        <Text style={styles.shadytext}>Forgot your login details? </Text>
+        <Text style={styles.blacktext}>Get help logging in.</Text>
+      </TouchableOpacity>
+      <Text style={styles.ortext}>
+        ----------------------------OR--------------------------------
+      </Text>
+      <TouchableOpacity style={styles.smalltextscontainer}>
+        <Text style={styles.bluetext}>Forgot your login details? </Text>
+        <Text style={styles.blacktext}>Get help logging in.</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          switchToSignUp();
+          dispatch(setError(null));
+        }}
+        style={styles.smalltextscontainer}>
         <Text style={{fontSize: 14, color: 'black', fontWeight: 'bold'}}>
-          Forgot Password?
+          Don't have an account? Sign Up
         </Text>
       </TouchableOpacity>
     </View>
