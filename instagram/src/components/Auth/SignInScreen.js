@@ -10,44 +10,23 @@ import auth from '@react-native-firebase/auth';
 import {getCountry} from 'react-native-localize';
 import {ImageLink} from '../../Assets/Images';
 import {setError, userSelector} from '../../redux/userReducer';
+import {Icon} from '../../Assets/Svgs/icon';
 
-const SignInScreen = () => {
+const SignInScreen = ({route, navigation}) => {
   const user = useSelector(userSelector);
   const [country, setcountry] = useState('');
   const [initializing, setInitializing] = useState(true);
 
-  const [isvalidEmail, setIsValidEmail] = useState(true);
+  const [isValidInfo, setIsValidInfo] = useState(false);
   const [isvalidPW, setIsValidPW] = useState(true);
-  const [isvalidName, setIsValidName] = useState(true);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
 
-  const [isSignIn, setisSignIn] = useState('none');
-  const [name, setname] = useState('');
+  const [userinfo, setUserInfo] = useState('');
+  const [password, setPassword] = useState('');
+
+  const [credientialType, setcredientialType] = useState('');
 
   const dispatch = useDispatch();
 
-  function onAuthStateChanged(user) {
-    if (initializing) setInitializing(false);
-  }
-
-  const signUpWithEmail = () => {
-    if (
-      !isvalidEmail ||
-      !isvalidPW ||
-      !isvalidName ||
-      !email ||
-      !password ||
-      !name
-    ) {
-      dispatch(setError('Please enter valid email and password'));
-    } else if (password === confirmPassword) {
-      createUser(dispatch, name, email, password);
-    } else {
-      dispatch(setError("Passwords don't match"));
-    }
-  };
   useEffect(() => {
     try {
       const userCountry = countries[getCountry()];
@@ -56,59 +35,79 @@ const SignInScreen = () => {
       console.error(error);
     }
   }, []);
-  const loginWithEmail = () => {
-    if (!isvalidEmail || !isvalidPW || !email || !password) {
+
+  useEffect(() => {
+    dispatch(setError(null));
+  }, []);
+  const loginUser = () => {
+    if (
+      !isValidInfo ||
+      !isvalidPW ||
+      !userinfo ||
+      !password ||
+      password.length < 4
+    ) {
       dispatch(setError('Please enter valid email and password'));
     } else {
-      signInUser(dispatch, email, password);
+      signInUser(dispatch, userinfo, password);
     }
   };
 
-  const forgotPasswordRequest = () => {
-    if (email && isvalidEmail) {
-      forgotPassword(email);
-    } else {
-      dispatch(setError('Please enter valid email address'));
-    }
+  const isNumeric = value => {
+    return /^-?\d+$/.test(value);
   };
-  const switchToSignUp = () => {
-    setisSignIn('sign up');
-  };
-  const switchToSignIn = () => {
-    setisSignIn('sign in');
-  };
-  /*
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
-  }, []);*/
 
   const validateEmail = () => {
     const re =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (re.test(String(email).toLowerCase())) {
-      setIsValidEmail(true);
+    if (re.test(String(userinfo).toLowerCase())) {
+      setIsValidInfo(true);
       dispatch(setError(null));
     } else {
-      setIsValidEmail(false);
+      setIsValidInfo(false);
       dispatch(setError('Please enter valid e-mail address'));
     }
   };
 
+  const validatePhone = () => {
+    var re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+
+    return re.test(userinfo);
+  };
+
+  const validateUserName = () => {
+    if (userinfo.length >= 4) {
+      setIsValidInfo(true);
+      dispatch(setError(null));
+    } else {
+      setIsValidInfo(false);
+      dispatch(setError('Please enter valid phone, user name or e-mail'));
+    }
+  };
+  const validateCrediential = () => {
+    if (userinfo.includes('@')) {
+      setcredientialType('email');
+      validateEmail();
+    } else if (isNumeric(userinfo)) {
+      setcredientialType('phone');
+      if (validatePhone()) {
+        setIsValidInfo(true);
+        dispatch(setError(null));
+      } else {
+        setIsValidInfo(false);
+        dispatch(setError('Please enter valid phone, user name or e-mail'));
+      }
+    } else {
+      setcredientialType('username');
+      validateUserName();
+    }
+  };
   const validatePW = () => {
     if (password.length >= 4) {
       setIsValidPW(true);
     } else {
       setIsValidPW(false);
       dispatch(setError('Please enter valid password'));
-    }
-  };
-  const validateName = () => {
-    if (name.length >= 4) {
-      setIsValidName(true);
-    } else {
-      setIsValidName(false);
-      dispatch(setError('Please enter valid Name'));
     }
   };
 
@@ -123,9 +122,9 @@ const SignInScreen = () => {
       <AuthInput
         label={'Phone number, email or username'}
         keyboardType={'email-address'}
-        state={email}
-        onChangeText={setEmail}
-        onEndEditing={validateEmail}
+        state={userinfo}
+        onChangeText={setUserInfo}
+        onEndEditing={validateCrediential}
       />
       <AuthInput
         label={'Password'}
@@ -136,32 +135,21 @@ const SignInScreen = () => {
         onEndEditing={validatePW}
         keyboardType={'default'}
       />
-      {user.errorMessage ? (
-        <View style={styles.errormessagecontainer}>
+
+      <View style={styles.errormessagecontainer}>
+        {user.errorMessage ? (
           <Text style={{fontSize: 16, color: 'red'}}>{user.errorMessage}</Text>
-        </View>
-      ) : null}
-      {(isSignIn === 'none') | (isSignIn === 'sign in') ? (
-        <>
-          <AuthButton label={'Log In'}></AuthButton>
-        </>
-      ) : null}
-      {isSignIn === 'sign up' ? (
-        <>
-          <AuthButton label={'Sign Up With Email'}></AuthButton>
-          <TouchableOpacity
-            onPress={() => {
-              switchToSignIn();
-              dispatch(setError(null));
-            }}
-            style={styles.smalltextscontainer}>
-            <Text style={{fontSize: 14, color: 'black', fontWeight: 'bold'}}>
-              Already have an account? Sign In
-            </Text>
-          </TouchableOpacity>
-        </>
-      ) : null}
-      <TouchableOpacity style={styles.smalltextscontainer}>
+        ) : null}
+      </View>
+
+      <AuthButton
+        onPress={() => loginUser()}
+        label={'Log In'}
+        pressable={isValidInfo && isvalidPW}></AuthButton>
+
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Help')}
+        style={styles.smalltextscontainer}>
         <Text style={styles.shadytext}>Forgot your login details? </Text>
         <Text style={styles.blacktext}>Get help logging in.</Text>
       </TouchableOpacity>
@@ -169,19 +157,20 @@ const SignInScreen = () => {
         ----------------------------OR--------------------------------
       </Text>
       <TouchableOpacity style={styles.smalltextscontainer}>
-        <Text style={styles.bluetext}>Forgot your login details? </Text>
-        <Text style={styles.blacktext}>Get help logging in.</Text>
+        <Icon name={'Facebook'} scale={0.7} />
+        <Text style={styles.bluetext}> Log in with Facebook</Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          switchToSignUp();
-          dispatch(setError(null));
-        }}
-        style={styles.smalltextscontainer}>
-        <Text style={{fontSize: 14, color: 'black', fontWeight: 'bold'}}>
-          Don't have an account? Sign Up
-        </Text>
-      </TouchableOpacity>
+      <View style={styles.footer}>
+        <TouchableOpacity
+          onPress={() => {
+            dispatch(setError(null));
+            navigation.navigate('Username', {country: country});
+          }}
+          style={styles.secondoptioncontainer}>
+          <Text style={styles.shadytext}>Don't have an account? </Text>
+          <Text style={styles.blacktext}> Sign Up</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

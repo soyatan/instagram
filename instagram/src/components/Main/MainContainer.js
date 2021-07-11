@@ -1,16 +1,29 @@
 import React, {useEffect, useState} from 'react';
-import {StatusBar} from 'react-native';
+import {StatusBar, BackHandler} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import AuthContainer from '../Auth/AuthContainer';
 import {useDispatch, useSelector} from 'react-redux';
-import {userSelector} from '../../redux/userReducer';
+import {setError, userSelector} from '../../redux/userReducer';
 
 const Main = createStackNavigator();
 
 export const MainContainer = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const backAction = () => {
+      dispatch(setError(null));
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
   /*useEffect(() => {
     SplashScreen.hide();
   }, []);*/

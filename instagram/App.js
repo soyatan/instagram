@@ -1,9 +1,8 @@
-import React from 'react';
-import {View, Text} from 'react-native';
-import {storey} from './src/redux/store';
-import {Provider} from 'react-redux';
+import React, {useEffect} from 'react';
 
-import {StatusBar} from 'react-native';
+import {storey} from './src/redux/store';
+import {Provider, useDispatch} from 'react-redux';
+
 import {PersistGate} from 'redux-persist/integration/react';
 import {MainContainer} from './src/components/Main/MainContainer';
 

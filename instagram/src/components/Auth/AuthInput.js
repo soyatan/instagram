@@ -32,7 +32,7 @@ export default AuthInput = ({
           keyboardType={keyboardType}
           onEndEditing={onEndEditing}
         />
-        {iconname ? <Icon name={iconname} scale={0.5} /> : null}
+        {iconname ? <Icon name={iconname} scale={1} /> : null}
       </View>
     </>
   );

@@ -12,6 +12,7 @@ const Families = {
 };
 
 const Sizes = {
+  ten: Metrics.width * 0.03,
   twelve: Metrics.width * 0.033,
   fourteen: Metrics.width * 0.037,
   sixteen: Metrics.width * 0.041,

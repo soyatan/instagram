@@ -6,9 +6,9 @@ import {width} from '../../constants/Metrics';
 
 export const Icon = ({name, scale}) => {
   const VecGr = SVGS[name];
-
+  const size = scale * width * 0.05;
   return (
-    <View style={{width: width * 0.05}}>
+    <View style={{width: size}}>
       <VecGr width="100%" height="100%" fill={'black'} />
     </View>
   );

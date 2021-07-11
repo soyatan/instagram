@@ -3,9 +3,11 @@ import {Text, TouchableOpacity} from 'react-native';
 
 import styles from './styles';
 
-export default AuthButton = ({label, onPress}) => {
+export default AuthButton = ({label, onPress, pressable}) => {
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
+    <TouchableOpacity
+      style={pressable ? styles.buttonpr : styles.button}
+      onPress={onPress}>
       <Text style={styles.whitetext}>{label}</Text>
     </TouchableOpacity>
   );

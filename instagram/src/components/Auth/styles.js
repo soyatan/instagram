@@ -17,11 +17,21 @@ export default styles = StyleSheet.create({
   header: {
     alignItems: 'center',
     marginTop: w * 0.02,
+
+    height: h * 0.04,
   },
+  checkbox: {alignSelf: 'center'},
   titletext: {
     fontSize: w * 0.04,
     fontWeight: 'bold',
     color: Colors.mainGray,
+  },
+  headertext: {
+    fontSize: w * 0.06,
+    fontWeight: 'bold',
+    alignSelf: 'flex-start',
+    color: Colors.mainBlack,
+    paddingLeft: w * 0.03,
   },
   logotext: {
     fontSize: w * 0.09,
@@ -29,7 +39,14 @@ export default styles = StyleSheet.create({
     //fontWeight: 'bold',
     color: Colors.mainBlack,
   },
-  logocontainer: {marginTop: h * 0.2},
+  logocontainer: {marginTop: h * 0.14, height: h * 0.07},
+  remembercontainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: w * 0.03,
+    left: 0,
+    width: w * 0.86,
+  },
   authinputcontainer: {
     height: h * 0.06,
     borderWidth: 0.7,
@@ -49,13 +66,28 @@ export default styles = StyleSheet.create({
 
     flex: 1,
   },
+  longtextcontainer: {
+    width: w * 0.86,
+    alignItems: 'center',
+  },
   whitetext: {
     color: Colors.mainWhite,
-    fontSize: Fonts.Sizes.eighteen,
+    fontSize: Fonts.Sizes.fourteen,
     fontFamily: Fonts.Families.bold,
   },
   button: {
     backgroundColor: Colors.lightBlue,
+    //borderRadius: 20,
+    margin: w * 0.03,
+    height: h * 0.06,
+    marginTop: h * 0.04,
+    width: w * 0.86,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: w * 0.03,
+  },
+  buttonpr: {
+    backgroundColor: Colors.darkBlue,
     //borderRadius: 20,
     margin: w * 0.03,
     height: h * 0.06,
@@ -70,10 +102,17 @@ export default styles = StyleSheet.create({
     color: Colors.mainBlack,
     fontWeight: 'bold',
   },
+  bigblacktext: {
+    fontSize: Fonts.Sizes.twentytwo,
+    color: Colors.mainBlack,
+    marginBottom: h * 0.02,
+    marginTop: h * 0.1,
+  },
   shadytext: {
     fontSize: Fonts.Sizes.twelve,
     color: Colors.mainGray,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
   ortext: {
     fontSize: Fonts.Sizes.twelve,
@@ -81,14 +120,22 @@ export default styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: w * 0.05,
     marginBottom: w * 0.05,
+    height: h * 0.03,
   },
   bluetext: {
-    fontSize: Fonts.Sizes.twelve,
+    fontSize: Fonts.Sizes.fourteen,
     color: Colors.darkBlue,
     fontWeight: 'bold',
-    marginTop: w * 0.05,
-    marginBottom: w * 0.05,
   },
+  bottombluetext: {
+    fontSize: Fonts.Sizes.ten,
+    color: Colors.darkBlue,
+    fontWeight: 'bold',
+  },
+  bottomtextcontainer: {
+    marginTop: h * 0.3,
+  },
+
   smalltextscontainer: {
     height: h * 0.05,
     width: w * 0.9,
@@ -96,7 +143,21 @@ export default styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
   },
+  footer: {
+    marginBottom: w * 0.05,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
 
+    bottom: 0,
+    flexGrow: 1,
+    width: w * 0.86,
+  },
+  secondoptioncontainer: {
+    flexDirection: 'row',
+    borderTopWidth: 1,
+    width: w * 0.86,
+    justifyContent: 'center',
+  },
   signInButton: {
     width: w * 0.87,
     height: w * 0.15,
