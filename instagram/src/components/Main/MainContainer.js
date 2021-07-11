@@ -27,10 +27,6 @@ export const MainContainer = () => {
 
   return (
     <>
-      <StatusBar
-        barStyle={'light-content'}
-        //backgroundColor={Colors.statusbarColor}
-      />
       <NavigationContainer>
         <Main.Navigator>
           {!user.isLoggedIn ? (

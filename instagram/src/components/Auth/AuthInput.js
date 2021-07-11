@@ -1,7 +1,9 @@
 import React from 'react';
 
 import {View, TextInput, Image} from 'react-native';
-import {ImageLink} from '../../Assets/Images';
+
+import {Icon} from '../../Assets/Svgs/icon';
+
 import styles from './styles';
 
 export default AuthInput = ({
@@ -16,21 +18,21 @@ export default AuthInput = ({
   return (
     <>
       <View style={styles.authinputcontainer}>
-        <Image style={styles.image} source={ImageLink[iconname]} />
         <TextInput
           style={styles.textinput}
           label={label}
           placeholder={label}
           autoCorrect={false}
           autoCapitalize="none"
-          placeholderTextColor="purple"
-          selectionColor="white"
+          placeholderTextColor="black"
+          selectionColor="blue"
           onChangeText={onChangeText}
           value={state}
           secureTextEntry={secureTextEntry}
           keyboardType={keyboardType}
           onEndEditing={onEndEditing}
         />
+        {iconname ? <Icon name={iconname} scale={0.5} /> : null}
       </View>
     </>
   );

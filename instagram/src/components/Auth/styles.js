@@ -2,6 +2,9 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 
 import {width as w, height as h, width} from '../../constants/Metrics';
+import {Colors} from './../../constants/Colors';
+import Fonts from '../../constants/Fonts';
+const {Families, Sizes} = Fonts;
 
 export default styles = StyleSheet.create({
   container: {
@@ -9,17 +12,50 @@ export default styles = StyleSheet.create({
     alignItems: 'center',
     //paddingTop: w * 0.01,
     //justifyContent: 'center',
+    backgroundColor: Colors.mainWhite,
   },
+  header: {
+    alignItems: 'center',
+    marginTop: w * 0.02,
+  },
+  titletext: {
+    fontSize: w * 0.04,
+    fontWeight: 'bold',
+    color: Colors.mainGray,
+  },
+  logotext: {
+    fontSize: w * 0.09,
+    fontFamily: Families.stylish,
+    //fontWeight: 'bold',
+    color: Colors.mainBlack,
+  },
+  logocontainer: {marginTop: h * 0.2},
+  authinputcontainer: {
+    height: h * 0.06,
+    borderWidth: 0.7,
+    opacity: 0.5,
+
+    //paddingLeft: 10,
+    width: w * 0.82,
+    borderRadius: w * 0.03,
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginTop: 20,
+  },
+  textinput: {
+    marginLeft: w * 0.02,
+    marginRight: w * 0.03,
+
+    flex: 1,
+  },
+
   smalltextscontainer: {
     height: h * 0.05,
     width: w * 0.9,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  header: {
-    alignItems: 'center',
-    marginTop: w * 0.02,
-  },
+
   signInButton: {
     width: w * 0.87,
     height: w * 0.15,
@@ -50,11 +86,7 @@ export default styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  titletext: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: 'white',
-  },
+
   imagebig: {
     width: w,
     flexWrap: 'wrap',
@@ -66,28 +98,10 @@ export default styles = StyleSheet.create({
     color: 'white',
   },
 
-  textinput: {
-    marginLeft: w * 0.04,
-    marginRight: w * 0.03,
-    paddingLeft: 5,
-    color: 'purple',
-
-    flex: 1,
-  },
   textinputcontainer: {
     alignItems: 'center',
   },
-  authinputcontainer: {
-    height: h * 0.08,
-    borderWidth: 0.5,
-    padding: 0,
-    paddingLeft: 10,
-    width: w * 0.85,
-    borderRadius: 20,
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginTop: 20,
-  },
+
   image: {
     width: w * 0.05,
     flexWrap: 'wrap',

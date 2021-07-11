@@ -5,15 +5,15 @@ import styles from './styles';
 import AuthInput from './AuthInput';
 import AuthButton from './AuthButton';
 import {useDispatch, useSelector} from 'react-redux';
-
+import countries from './countries.json';
 import auth from '@react-native-firebase/auth';
-//import {createUser, forgotPassword, signInUser} from '../../API/auth';
-import {Grads} from '../../constants/Colors';
+import {getCountry} from 'react-native-localize';
 import {ImageLink} from '../../Assets/Images';
 import {setError, userSelector} from '../../redux/userReducer';
 
 const SignInScreen = () => {
   const user = useSelector(userSelector);
+  const [country, setcountry] = useState('');
   const [initializing, setInitializing] = useState(true);
 
   const [isvalidEmail, setIsValidEmail] = useState(true);
@@ -48,7 +48,14 @@ const SignInScreen = () => {
       dispatch(setError("Passwords don't match"));
     }
   };
-
+  useEffect(() => {
+    try {
+      const userCountry = countries[getCountry()];
+      setcountry(userCountry);
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
   const loginWithEmail = () => {
     if (!isvalidEmail || !isvalidPW || !email || !password) {
       dispatch(setError('Please enter valid email and password'));
@@ -75,8 +82,6 @@ const SignInScreen = () => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
   }, []);*/
-
-  const GR = Grads.AuthBackground;
 
   const validateEmail = () => {
     const re =
@@ -109,48 +114,30 @@ const SignInScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Image style={styles.imagebig} source={ImageLink['header']} />
       <View style={styles.header}>
-        <Text style={styles.titletext}>LOGIN </Text>
+        <Text style={styles.titletext}>English({country})</Text>
       </View>
-      <View style={styles.googlebutton}></View>
-      {isSignIn === 'sign up' ? (
-        <AuthInput
-          label={'Name'}
-          onChangeText={setname}
-          onEndEditing={validateName}
-          state={name}
-          iconname={'user'}
-        />
-      ) : null}
+      <View style={styles.logocontainer}>
+        <Text style={styles.logotext}>Instagram</Text>
+      </View>
+
       <AuthInput
-        label={'Email'}
+        label={'Phone number, email or username'}
         keyboardType={'email-address'}
-        iconname={'mail'}
         state={email}
         onChangeText={setEmail}
         onEndEditing={validateEmail}
       />
       <AuthInput
         label={'Password'}
-        iconname={'password'}
+        iconname={'Hide'}
         state={password}
         onChangeText={setPassword}
         secureTextEntry={true}
         onEndEditing={validatePW}
         keyboardType={'default'}
       />
-      {isSignIn === 'sign up' ? (
-        <AuthInput
-          label={'Password'}
-          keyboardType={'default'}
-          iconname={'password'}
-          state={confirmPassword}
-          onChangeText={setConfirmPassword}
-          secureTextEntry={true}
-          onEndEditing={validatePW}
-        />
-      ) : null}
+
       <View style={styles.errormessagecontainer}>
         {user.errorMessage ? (
           <Text style={{fontSize: 16, color: 'red'}}>{user.errorMessage}</Text>

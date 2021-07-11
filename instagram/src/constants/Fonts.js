@@ -8,6 +8,7 @@ const Families = {
   bold: 'Quicksand-Bold',
   black: 'Overlock-Black',
   monoton: 'Monoton-Regular',
+  stylish: 'LobsterTwo-Italic',
 };
 
 const Sizes = {
