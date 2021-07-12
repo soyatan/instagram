@@ -13,7 +13,7 @@ import {ImageLink} from '../../Assets/Images';
 import {setError, userSelector} from '../../redux/userReducer';
 import {Icon} from '../../Assets/Svgs/icon';
 
-const FinalizeScreen = ({route, navigation}) => {
+const AddPhotoScreen = ({route, navigation}) => {
   const user = useSelector(userSelector);
 
   const dispatch = useDispatch();
@@ -40,36 +40,29 @@ const FinalizeScreen = ({route, navigation}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.bigblacktext}>
-        Welcome to Instagram, {route.params.username}
-      </Text>
+      <View style={styles.cameracontainer}>
+        <Icon name={'Camera'} scale={3} />
+      </View>
+
+      <Text style={styles.bigblacktext}>Add Profile Photo</Text>
+
       <View style={styles.longtextcontainer}>
         <Text style={styles.shadytext}>
-          We'll add the {route.params.email} and a phone number to your account.
-          This step is optional.
+          Add a profile photo so your friends know it's you.
         </Text>
       </View>
 
       <AuthButton
         onPress={() => completeSignup()}
-        label={'Complete Sign Up'}
+        label={'Add a Photo'}
         pressable={true}></AuthButton>
       <TouchableOpacity
         style={styles.smalltextscontainer}
         onPress={() => addPhone()}>
-        <Text style={styles.bluetext}> Add New Phone Number</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.footer}>
-        <Text style={styles.shadytext}>
-          We'll add private info to {route.params.username}. See
-        </Text>
-        <Text style={styles.blacktext}>
-          Terms, Data Policy and Cookies Policy
-        </Text>
+        <Text style={styles.bluetext}> Skip</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-export default FinalizeScreen;
+export default AddPhotoScreen;

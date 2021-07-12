@@ -12,7 +12,9 @@ import SignUpScreen from './UsernameScreen';
 import UsernameScreen from './UsernameScreen';
 import PasswordScreen from './PasswordScreen';
 import FinalizeScreen from './FinalizeScreen';
-import PhoneEmailScreen from './PhoneEmailScreen';
+
+import EmailScreen from './EmailScreen';
+import AddPhotoScreen from './AddPhotoScreen';
 
 const Auth = createStackNavigator();
 
@@ -21,6 +23,7 @@ const AuthContainer = () => {
     <>
       <StatusBar barStyle={'dark-content'} backgroundColor={Colors.mainWhite} />
       <Auth.Navigator screenOptions={{headerShown: false}}>
+        <Auth.Screen name="Photo" component={AddPhotoScreen} />
         <Auth.Screen name="Signin" component={SignInScreen} />
         <Auth.Screen name="Help" component={HelpScreen} />
         <Auth.Screen
@@ -39,7 +42,7 @@ const AuthContainer = () => {
         <Auth.Screen name="Username" component={UsernameScreen} />
         <Auth.Screen name="Password" component={PasswordScreen} />
         <Auth.Screen name="Finalize" component={FinalizeScreen} />
-        <Auth.Screen name="Phone-Email" component={PhoneEmailScreen} />
+        <Auth.Screen name="Email" component={EmailScreen} />
       </Auth.Navigator>
     </>
   );

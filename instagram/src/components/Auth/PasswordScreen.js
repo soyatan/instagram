@@ -30,18 +30,20 @@ const PasswordScreen = ({route, navigation}) => {
         navigation.navigate('Finalize', {
           country: route.params.country,
           username: route.params.username,
+          email: route.params.email,
           password: password,
         });
       } else {
         navigation.navigate('Finalize', {
           country: '',
           username: route.params.username,
+          email: route.params.email,
           password: password,
         });
       }
     }
   };
-  const loginUser = () => {
+  const signUpUser = () => {
     if (!isvalidPW || !password || password.length < 4) {
       dispatch(setError('Please enter valid email and password'));
     } else {
@@ -104,7 +106,7 @@ const PasswordScreen = ({route, navigation}) => {
         </View>
       ) : null}
       <AuthButton
-        onPress={() => loginUser()}
+        onPress={() => signUpUser()}
         label={'Next'}
         pressable={isvalidPW}></AuthButton>
     </View>

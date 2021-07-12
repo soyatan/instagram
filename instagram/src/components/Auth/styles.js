@@ -143,6 +143,12 @@ export default styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
   },
+  cameracontainer: {
+    borderWidth: 1,
+    padding: w * 0.05,
+    borderRadius: w * 0.3,
+    marginTop: h * 0.1,
+  },
   footer: {
     marginBottom: w * 0.05,
     alignItems: 'center',

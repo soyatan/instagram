@@ -12,59 +12,64 @@ import {ImageLink} from '../../Assets/Images';
 import {setError, userSelector} from '../../redux/userReducer';
 import {Icon} from '../../Assets/Svgs/icon';
 
-const UsernameScreen = ({route, navigation}) => {
+const EmailScreen = ({route, navigation}) => {
   const user = useSelector(userSelector);
 
   const [isValidInfo, setIsValidInfo] = useState(false);
 
-  const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState('');
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (userName !== '') validateUserName();
-  }, [userName]);
+    if (email !== '') validateEmail();
+  }, [email]);
 
   const createUsername = () => {
     if (!isValidInfo) {
       dispatch(setError('Please enter valid email and password'));
     } else {
       if (route.params.country) {
-        navigation.navigate('Email', {
+        navigation.navigate('Password', {
           country: route.params.country,
-          username: userName,
+          username: route.params.username,
+          email: email,
         });
       } else {
-        navigation.navigate('Email', {
+        navigation.navigate('Password', {
           country: '',
-          username: userName,
+          username: route.params.username,
+          email: email,
         });
       }
     }
   };
-
-  const validateUserName = () => {
-    if (userName.length >= 4) {
+  const validateEmail = () => {
+    const re =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (re.test(String(email).toLowerCase())) {
       setIsValidInfo(true);
       dispatch(setError(null));
     } else {
       setIsValidInfo(false);
-      dispatch(setError('Please enter valid user name'));
+      dispatch(setError('Please enter valid e-mail address'));
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.bigblacktext}>Choose Username</Text>
+      <Text style={styles.bigblacktext}>Enter an email address</Text>
       <View style={styles.longtextcontainer}>
-        <Text style={styles.shadytext}>You can always change it later.</Text>
+        <Text style={styles.shadytext}>
+          Email address is required for safety.
+        </Text>
       </View>
       <AuthInput
-        label={'Username'}
-        keyboardType={'default'}
-        state={userName}
-        onChangeText={setUserName}
-        onEndEditing={validateUserName}
+        label={'Email'}
+        keyboardType={'email-address'}
+        state={email}
+        onChangeText={setEmail}
+        onEndEditing={validateEmail}
       />
       {user.errorMessage ? (
         <View style={styles.errormessagecontainer}>
@@ -80,4 +85,4 @@ const UsernameScreen = ({route, navigation}) => {
   );
 };
 
-export default UsernameScreen;
+export default EmailScreen;

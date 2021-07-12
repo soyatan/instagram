@@ -8,7 +8,7 @@ export const Icon = ({name, scale}) => {
   const VecGr = SVGS[name];
   const size = scale * width * 0.05;
   return (
-    <View style={{width: size}}>
+    <View style={{width: size, height: size}}>
       <VecGr width="100%" height="100%" fill={'black'} />
     </View>
   );
