@@ -24,13 +24,13 @@ const AddPhotoScreen = ({route, navigation}) => {
 
   const completeSignup = () => {
     if (route.params.country) {
-      navigation.navigate('Phone-Email', {
+      navigation.navigate('Camera', {
         country: route.params.country,
         username: route.params.username,
         password: route.params.password,
       });
     } else {
-      navigation.navigate('Phone-Email', {
+      navigation.navigate('Camera', {
         country: '',
         username: route.params.username,
         password: route.params.password,
@@ -53,7 +53,7 @@ const AddPhotoScreen = ({route, navigation}) => {
       </View>
 
       <AuthButton
-        onPress={() => completeSignup()}
+        onPress={() => navigation.navigate('Camera')}
         label={'Add a Photo'}
         pressable={true}></AuthButton>
       <TouchableOpacity
