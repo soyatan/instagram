@@ -7,15 +7,25 @@ import Fonts from '../../constants/Fonts';
 const {Families, Sizes} = Fonts;
 
 export default styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  cameracontainer: {
+    width: '100%',
+    height: h * 0.9,
     flexDirection: 'column',
     backgroundColor: 'black',
   },
   preview: {
-    flex: 1,
+    width: '100%',
+    height: '100%',
     justifyContent: 'flex-end',
     alignItems: 'center',
+  },
+  capturecontainer: {
+    flex: 0,
+    position: 'absolute',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    bottom: 10,
   },
   capture: {
     flex: 0,
