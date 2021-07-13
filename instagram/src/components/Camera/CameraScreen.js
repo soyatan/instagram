@@ -15,6 +15,7 @@ import {requestStoragePermission} from '../../API/requestPermission';
 import {CaptureButton} from './CaptureButton';
 import {ConfirmButton} from './ConfirmButton';
 import {PreviewScreen} from './PreviewScreen';
+import {CameraGrid} from './CameraGrid';
 
 const CameraScreen = () => {
   const [imageUri, setimageUri] = useState('');
@@ -59,6 +60,7 @@ const CameraScreen = () => {
           return <CaptureButton onPress={() => takePicture()} />;
         }}
       </RNCamera>
+      <CameraGrid />
     </View>
   ) : (
     <View style={styles.cameracontainer}>

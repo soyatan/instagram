@@ -5,18 +5,18 @@ export const requestStoragePermission = async (callback: any) => {
     const granted = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
       {
-        title: 'Galeri kaydetme izni gerekiyor',
-        message: 'Fotoğrafınızın galeriye kaydedilmesi için izin veriniz',
-        buttonNeutral: 'Daha sonra sor',
-        buttonNegative: 'İptal',
-        buttonPositive: 'Tamam',
+        title: 'Required permission to save to gallery',
+        message: 'Please give permission to save the photo to gallery.',
+        buttonNeutral: 'Remind later',
+        buttonNegative: 'Cancel',
+        buttonPositive: 'Ok',
       },
     );
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      console.log('✅İzin verildi');
+      console.log('✅Permission Granted');
       callback();
     } else {
-      console.log('❌İzin verilmedi');
+      console.log('❌Access Denied');
     }
   } catch (err) {
     console.warn(err);

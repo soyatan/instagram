@@ -56,4 +56,15 @@ export default styles = StyleSheet.create({
     bottom: 0,
     width: '100%',
   },
+  cameragridcontainer: {
+    width: w,
+    height: w * 0.9,
+    backgroundColor: 'red',
+    opacity: 0.3,
+    borderWidth: 1,
+    elevation: 200,
+    position: 'absolute',
+    top: h * 0.2,
+    alignSelf: 'center',
+  },
 });
