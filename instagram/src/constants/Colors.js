@@ -9,4 +9,5 @@ export const Colors = {
   mainPurple: '#6e29b3',
   lightBlue: '#C8EFFE',
   darkBlue: '#59A3DC',
+  lightGray: '#f4f3ef',
 };

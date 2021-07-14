@@ -16,6 +16,14 @@ export default styles = StyleSheet.create({
   blogheader: {
     width: '100%',
     height: h * 0.15,
-    backgroundColor: 'red',
+    backgroundColor: Colors.lightGray,
+  },
+  blogfooter: {
+    width: '100%',
+    height: h * 0.1,
+    backgroundColor: Colors.mainPink,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
   },
 });

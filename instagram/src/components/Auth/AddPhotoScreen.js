@@ -77,7 +77,7 @@ const AddPhotoScreen = ({route, navigation}) => {
         pressable={true}></AuthButton>
       <TouchableOpacity
         style={styles.smalltextscontainer}
-        onPress={() => navigation.navigate('Welcome')}>
+        onPress={() => navigation.navigate('Blog')}>
         <Text style={styles.bluetext}> Skip</Text>
       </TouchableOpacity>
     </View>

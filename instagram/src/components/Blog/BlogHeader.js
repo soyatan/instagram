@@ -6,8 +6,6 @@ export const BlogHeader = () => {
   return (
     <View style={styles.blogheader}>
       <Text>WELCOMMEN</Text>
-      <Text>WELCOMMEN</Text>
-      <Text>WELCOMMEN</Text>
     </View>
   );
 };
