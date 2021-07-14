@@ -6020,6 +6020,11 @@ react-native-gesture-handler@^1.10.3:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
+react-native-image-crop-picker@^0.36.2:
+  version "0.36.2"
+  resolved "https://registry.yarnpkg.com/react-native-image-crop-picker/-/react-native-image-crop-picker-0.36.2.tgz#fcb35c1a12d805bedbb6d94a87078e86a6c9b49f"
+  integrity sha512-cTauoEHHzx14ZHA7Pt65e7RVnbn1WRYQz2ufTZp9/05EtNDrdsXwNhgtXdWVFbOhYB8qgUFQjy2NelkBOHIH3g==
+
 react-native-image-picker@^4.0.4:
   version "4.0.4"
   resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-4.0.4.tgz#4b09d644d9ad7afaedc82db650522dca6bbefc5c"
@@ -6034,6 +6039,11 @@ react-native-localize@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/react-native-localize/-/react-native-localize-2.1.1.tgz#da8f8776991d2b748708c408db05152602cefb38"
   integrity sha512-+uyz2/b0vyLq19fcb7r1qU1gqmzbp3aC6EMTvOVXwfBuiN+aJXR/fDdFOJJ8D7+bLccKeuS2zBDrazh+ZayX/g==
+
+react-native-photo-editor@^1.0.12:
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/react-native-photo-editor/-/react-native-photo-editor-1.0.12.tgz#bd2dff20e8f35445e875a05dd88b40d024e6365f"
+  integrity sha512-HDBCPluN2qqNm/RLUq7H+N5FNcgA+BLqELYs5lofUhKk3rfP/lP/iR3Jz3Oo8rXomEu7R6Dp3YKJ8+EukcN9XQ==
 
 react-native-reanimated@^2.2.0:
   version "2.2.0"

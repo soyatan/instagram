@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   View,
   TouchableOpacity,
@@ -16,11 +16,37 @@ import {CaptureButton} from './CaptureButton';
 import {ConfirmButton} from './ConfirmButton';
 import {PreviewScreen} from './PreviewScreen';
 import {CameraGrid} from './CameraGrid';
-
+import ImagePicker from 'react-native-image-crop-picker';
 const CameraScreen = () => {
   const [imageUri, setimageUri] = useState('');
+  const [isTaking, setisTaking] = useState(true);
   const camera = useRef();
 
+  useEffect(() => {
+    if (imageUri) {
+      chooseFromGallery();
+    }
+  }, [imageUri]);
+
+  const chooseFromGallery = async () => {
+    await ImagePicker.openCropper({
+      path: imageUri,
+      width: 250,
+      height: 250,
+      cropping: true,
+      freeStyleCropEnabled: false,
+    })
+      .then(image => {
+        requestStoragePermission(() => CameraRoll.save(image.path, 'photo'));
+      })
+      .then(() => {
+        setimageUri('');
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+  console.log('uristate', imageUri);
   const takePicture = async function () {
     console.log('CHEESE');
     if (camera) {
@@ -30,12 +56,15 @@ const CameraScreen = () => {
         .then(data => {
           console.log(data.uri);
           setimageUri(data == undefined ? '' : data.uri);
-          requestStoragePermission(() => CameraRoll.save(data.uri, 'photo'));
+        })
+
+        .catch(error => {
+          console.log(error);
         });
     }
   };
 
-  return imageUri == '' ? (
+  return isTaking ? (
     <View style={styles.cameracontainer}>
       <RNCamera
         ref={camera}

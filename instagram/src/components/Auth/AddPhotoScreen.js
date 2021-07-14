@@ -12,16 +12,31 @@ import {getCountry} from 'react-native-localize';
 import {ImageLink} from '../../Assets/Images';
 import {setError, userSelector} from '../../redux/userReducer';
 import {Icon} from '../../Assets/Svgs/icon';
+import ImagePicker from 'react-native-image-crop-picker';
+import {imageGalleryLaunch} from '../../API/launchImageGallery';
 
 const AddPhotoScreen = ({route, navigation}) => {
   const user = useSelector(userSelector);
 
   const dispatch = useDispatch();
-
+  const onFileSelected = images => {
+    close;
+  };
   const addPhone = () => {
     console.log('No phone');
   };
-
+  const chooseFromGallery = () => {
+    ImagePicker.openPicker({
+      width: 250,
+      height: 250,
+      cropping: true,
+      freeStyleCropEnabled: true,
+    })
+      .then(images => {})
+      .catch(error => {
+        console.log(error);
+      });
+  };
   const completeSignup = () => {
     if (route.params.country) {
       navigation.navigate('Camera', {
@@ -56,9 +71,13 @@ const AddPhotoScreen = ({route, navigation}) => {
         onPress={() => navigation.navigate('Camera')}
         label={'Add a Photo'}
         pressable={true}></AuthButton>
+      <AuthButton
+        onPress={() => chooseFromGallery()}
+        label={'Choose from Gallery'}
+        pressable={true}></AuthButton>
       <TouchableOpacity
         style={styles.smalltextscontainer}
-        onPress={() => addPhone()}>
+        onPress={() => navigation.navigate('Welcome')}>
         <Text style={styles.bluetext}> Skip</Text>
       </TouchableOpacity>
     </View>

@@ -26,6 +26,8 @@ export default styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     bottom: 10,
+    elevation: 350,
+    zIndex: 1,
   },
   capture: {
     flex: 0,
@@ -35,6 +37,7 @@ export default styles = StyleSheet.create({
     paddingHorizontal: 20,
     alignSelf: 'center',
     margin: 20,
+    elevation: 355,
   },
   preview: {
     flex: 1,
@@ -58,13 +61,36 @@ export default styles = StyleSheet.create({
   },
   cameragridcontainer: {
     width: w,
-    height: w * 0.9,
-    backgroundColor: 'red',
-    opacity: 0.3,
+    height: h,
+
+    opacity: 0.4,
     borderWidth: 1,
     elevation: 200,
     position: 'absolute',
-    top: h * 0.2,
+    top: 0,
     alignSelf: 'center',
+  },
+  firstcameragrid: {
+    flexGrow: 1,
+    backgroundColor: Colors.mainBlack,
+    opacity: 0.7,
+  },
+  secondcameragrid: {
+    height: w * 0.333,
+    width: w,
+    opacity: 1,
+    flexDirection: 'row',
+  },
+  thirdcameragrid: {
+    flexGrow: 1,
+    backgroundColor: Colors.mainBlack,
+    opacity: 0.7,
+    elevation: -200,
+  },
+  grid: {
+    borderWidth: 1,
+    borderColor: 'white',
+    width: w * 0.33,
+    height: w * 0.33,
   },
 });
