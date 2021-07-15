@@ -179,28 +179,8 @@ export default styles = StyleSheet.create({
     alignItems: 'center',
     alignContent: 'center',
   },
-  googlebutton: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: h * 0.02,
-  },
-
-  imagebig: {
-    width: w,
-    flexWrap: 'wrap',
-    resizeMode: 'contain',
-    //aspectRatio: 1,
-    //marginTop: w * 0.015, //borderRadius: w * 0.25,
-  },
 
   textinputcontainer: {
     alignItems: 'center',
-  },
-
-  image: {
-    width: w * 0.05,
-    flexWrap: 'wrap',
-    resizeMode: 'contain',
-    aspectRatio: 1,
   },
 });

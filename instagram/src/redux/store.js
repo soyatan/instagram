@@ -6,9 +6,11 @@ import REDUX_PERSIST from './ReduxPersistConfig';
 import {persistStore, persistReducer} from 'redux-persist';
 
 import {userReducer} from './userReducer';
+import {storyReducer} from './storyReducer';
 
 const combinedReducer = combineReducers({
   userState: userReducer,
+  storyState: storyReducer,
 });
 
 let persistedReducer = combinedReducer;
