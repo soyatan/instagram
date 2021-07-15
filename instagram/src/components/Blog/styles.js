@@ -54,6 +54,25 @@ export default styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
+  shadytexttoleft: {
+    fontSize: Fonts.Sizes.twelve,
+    color: Colors.mainGray,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    alignSelf: 'flex-start',
+    paddingHorizontal: w * 0.03,
+    marginBottom: w * 0.02,
+  },
+  datetext: {
+    fontSize: Fonts.Sizes.ten,
+    color: Colors.mainGray,
+    fontFamily: Fonts.Families.medium,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    alignSelf: 'flex-start',
+    paddingHorizontal: w * 0.03,
+    marginBottom: w * 0.02,
+  },
   blogfooter: {
     width: '100%',
     borderTopColor: Colors.mainGray,
@@ -93,18 +112,22 @@ export default styles = StyleSheet.create({
 
     flexDirection: 'row',
   },
+  more: {
+    backgroundColor: 'yellow',
+  },
   postcardbottomcontainer: {
     height: h * 0.08,
     alignItems: 'center',
     backgroundColor: 'gray',
     flexDirection: 'row',
+    paddingHorizontal: w * 0.03,
   },
   commentscontainer: {
-    height: h * 0.08,
-    alignItems: 'center',
-    backgroundColor: 'blue',
+    height: h * 0.06,
     flexDirection: 'row',
+    paddingHorizontal: w * 0.03,
   },
+  likecontainer: {backgroundColor: 'red', paddingHorizontal: w * 0.03},
   profilephotocontainer: {
     borderRadius: w,
     width: w * 0.2,
@@ -164,6 +187,8 @@ export default styles = StyleSheet.create({
     fontSize: Fonts.Sizes.fourteen,
     fontFamily: Fonts.Families.bold,
   },
+  commenttextheader: {color: Colors.mainBlack},
+  commenttext: {color: Colors.mainBlack, fontFamily: Fonts.Families.medium},
   image: {
     width: '100%',
     height: '100%',

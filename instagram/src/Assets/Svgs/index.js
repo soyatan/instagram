@@ -17,6 +17,8 @@ import Add_User from './add-user.svg';
 import Video from './video.svg';
 import Three_Dots from './threedots.svg';
 import User from './user.svg';
+import Comment from './comment.svg';
+import Favorite from './favorite.svg';
 import Message from './messenger.svg';
 export const SVGS = {
   Hide,
@@ -39,4 +41,6 @@ export const SVGS = {
   User,
   Message,
   Three_Dots,
+  Comment,
+  Favorite,
 };
