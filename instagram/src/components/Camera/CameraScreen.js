@@ -17,6 +17,7 @@ import {ConfirmButton} from './ConfirmButton';
 import {PreviewScreen} from './PreviewScreen';
 import {CameraGrid} from './CameraGrid';
 import ImagePicker from 'react-native-image-crop-picker';
+import {uploadImage} from './../../API/storageFunctions';
 const CameraScreen = () => {
   const [imageUri, setimageUri] = useState('');
   const [isTaking, setisTaking] = useState(true);
@@ -38,15 +39,17 @@ const CameraScreen = () => {
     })
       .then(image => {
         requestStoragePermission(() => CameraRoll.save(image.path, 'photo'));
+        uploadImage(image.path);
       })
       .then(() => {
-        setimageUri('');
+        //setimageUri('');
       })
       .catch(error => {
         console.log(error);
       });
   };
   console.log('uristate', imageUri);
+
   const takePicture = async function () {
     console.log('CHEESE');
     if (camera) {

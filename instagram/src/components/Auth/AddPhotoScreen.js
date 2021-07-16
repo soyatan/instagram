@@ -80,6 +80,11 @@ const AddPhotoScreen = ({route, navigation}) => {
         onPress={() => navigation.navigate('Blog')}>
         <Text style={styles.bluetext}> Skip</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.smalltextscontainer}
+        onPress={() => navigation.navigate('Blog')}>
+        <Text style={styles.bluetext}> TRY DATABASE</Text>
+      </TouchableOpacity>
     </View>
   );
 };

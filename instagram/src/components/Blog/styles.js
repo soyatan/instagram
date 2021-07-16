@@ -25,7 +25,7 @@ export default styles = StyleSheet.create({
     borderBottomColor: Colors.lightGray,
     borderBottomWidth: 0.4,
   },
-  doubletextstack: {height: '100%', flex: 4, backgroundColor: 'blue'},
+  doubletextstack: {height: '100%', flex: 4},
   optionsbuttoncontainer: {
     flex: 0.7,
     justifyContent: 'center',
@@ -107,27 +107,24 @@ export default styles = StyleSheet.create({
   },
   postcardcontainer: {width: '100%', height: h * 0.65},
   postcardtopcontainer: {
-    height: h * 0.08,
+    height: h * 0.06,
     alignItems: 'center',
 
     flexDirection: 'row',
   },
-  more: {
-    backgroundColor: 'yellow',
-  },
+
   postcardbottomcontainer: {
-    height: h * 0.08,
-    alignItems: 'center',
-    backgroundColor: 'gray',
-    flexDirection: 'row',
-    paddingHorizontal: w * 0.03,
-  },
-  commentscontainer: {
     height: h * 0.06,
+    alignItems: 'stretch',
     flexDirection: 'row',
     paddingHorizontal: w * 0.03,
   },
-  likecontainer: {backgroundColor: 'red', paddingHorizontal: w * 0.03},
+  descriptioncontainer: {
+    flexDirection: 'row',
+    paddingHorizontal: w * 0.03,
+    marginBottom: w * 0.02,
+  },
+  likecontainer: {paddingHorizontal: w * 0.03},
   profilephotocontainer: {
     borderRadius: w,
     width: w * 0.2,
@@ -188,7 +185,11 @@ export default styles = StyleSheet.create({
     fontFamily: Fonts.Families.bold,
   },
   commenttextheader: {color: Colors.mainBlack},
-  commenttext: {color: Colors.mainBlack, fontFamily: Fonts.Families.medium},
+  commenttext: {
+    color: Colors.mainBlack,
+    fontFamily: Fonts.Families.medium,
+    fontWeight: '100',
+  },
   image: {
     width: '100%',
     height: '100%',
