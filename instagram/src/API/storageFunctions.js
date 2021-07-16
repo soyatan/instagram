@@ -43,7 +43,10 @@ export const uploadImage = async image => {
   const uploadUri =
     Platform.OS === 'ios' ? image.replace('file://', '') : image;
 
-  const task = storage().ref().child('cocukidsi').putFile(uploadUri);
+  const task = storage()
+    .ref(`userPosts/134728`)
+    .child('Bokbogei')
+    .putFile(uploadUri);
 
   const taskProgress = snapshot => {
     console.log(`transferred: ${snapshot.bytesTransfered}`);
