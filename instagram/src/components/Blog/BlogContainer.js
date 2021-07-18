@@ -10,6 +10,7 @@ import styles from './styles';
 import {WelcomeScreen} from '../Blog/WelcomeScreen';
 import {BlogHeader} from '../Blog/BlogHeader';
 import {BlogFooter} from './../Blog/BlogFooter';
+import CameraScreen from '../Camera/CameraScreen';
 
 const Blog = createStackNavigator();
 
@@ -19,6 +20,7 @@ const BlogContainer = () => {
       <BlogHeader />
       <Blog.Navigator screenOptions={{headerShown: false}}>
         <Blog.Screen name="Welcome" component={WelcomeScreen} />
+        <Blog.Screen name="Camera" component={CameraScreen} />
       </Blog.Navigator>
       <BlogFooter />
     </>

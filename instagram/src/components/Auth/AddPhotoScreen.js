@@ -16,8 +16,6 @@ import ImagePicker from 'react-native-image-crop-picker';
 import {imageGalleryLaunch} from '../../API/launchImageGallery';
 
 const AddPhotoScreen = ({route, navigation}) => {
-  const user = useSelector(userSelector);
-
   const dispatch = useDispatch();
   const onFileSelected = images => {
     close;

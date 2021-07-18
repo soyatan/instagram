@@ -20,6 +20,8 @@ target 'instagram' do
 
   pod 'RNFS', :path => '../node_modules/react-native-fs'
 
+  pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
+
   target 'instagramTests' do
     inherit! :complete
     # Pods for testing

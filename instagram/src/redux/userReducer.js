@@ -2,11 +2,11 @@ const INITIAL_STATE = {
   errorMessage: null,
   isLoggedIn: false,
   userId: null,
+  country: null,
   userName: null,
+  phoneNumber: null,
+  email: null,
   loginType: null,
-  numbersFollowing: 0,
-  numbersFollower: 0,
-  numbersPosts: 0,
 };
 
 //selector
@@ -15,7 +15,7 @@ export const userSelector = state => state.userState;
 export const SET_USER = 'user/set';
 export const SET_ERROR = 'error/set';
 export const SET_USERANDERROR = 'error&user/set';
-export const SET_USER_REQUEST = 'user/set/request';
+
 export const SIGNOUT_REQUEST = 'signout/request';
 export const SIGNOUT = 'signout';
 
@@ -24,17 +24,6 @@ export const UPDATE_USER_REQUEST = 'user/update';
 export const setUser = (userName, userId, loginType) => {
   return {
     type: SET_USER,
-    payload: {
-      userName,
-      userId,
-      loginType,
-    },
-  };
-};
-
-export const setUserRequest = (userName, userId, loginType) => {
-  return {
-    type: SET_USER_REQUEST,
     payload: {
       userName,
       userId,
@@ -53,22 +42,24 @@ export const setError = errorMessage => {
 };
 
 export const setUserAndError = (
+  country,
   userName,
   userId,
-  errorMessage,
+  phoneNumber,
+  email,
   loginType,
-  popCoin,
-  ownedBoards,
+  errorMessage,
 ) => {
   return {
     type: SET_USERANDERROR,
     payload: {
+      country,
       userName,
       userId,
-      errorMessage,
+      phoneNumber,
+      email,
       loginType,
-      popCoin,
-      ownedBoards,
+      errorMessage,
     },
   };
 };

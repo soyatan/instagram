@@ -11,7 +11,6 @@ export const PostCard = () => {
   const [fullDescriptionShown, setfullDescriptionShown] = useState(false);
   const posts = [
     {
-      key: 1,
       mediaID: 12312312,
       senderUserName: 'Necati_Soyata',
       description:

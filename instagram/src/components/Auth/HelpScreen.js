@@ -11,43 +11,77 @@ import {getCountry} from 'react-native-localize';
 import {ImageLink} from '../../Assets/Images';
 import {setError, userSelector} from '../../redux/userReducer';
 import {Icon} from '../../Assets/Svgs/icon';
+import {forgotPassword} from '../../API/firebase';
 
 const HelpScreen = ({route, navigation}) => {
   const user = useSelector(userSelector);
-  const [isvalidEmail, setIsValidEmail] = useState(true);
-  const [isvalidPW, setIsValidPW] = useState(true);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
-  const [isSignIn, setisSignIn] = useState('none');
+  const [isValidInfo, setIsValidInfo] = useState(false);
 
+  const [userinfo, setUserInfo] = useState('');
+
+  const [credientialType, setcredientialType] = useState('');
   const dispatch = useDispatch();
-
-  const switchToSignUp = () => {
-    setisSignIn('sign up');
+  const helpUser = () => {
+    forgotPassword(dispatch, navigation, credientialType, userinfo);
   };
-  const switchToSignIn = () => {
-    setisSignIn('sign in');
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      dispatch(setError(null));
+    });
+    return unsubscribe;
+  }, [navigation]);
+
+  useEffect(() => {
+    validateCrediential();
+  }, [userinfo]);
+  const isNumeric = value => {
+    return /^-?\d+$/.test(value);
   };
 
   const validateEmail = () => {
     const re =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (re.test(String(email).toLowerCase())) {
-      setIsValidEmail(true);
+    if (re.test(String(userinfo).toLowerCase())) {
+      setIsValidInfo(true);
       dispatch(setError(null));
     } else {
-      setIsValidEmail(false);
+      setIsValidInfo(false);
       dispatch(setError('Please enter valid e-mail address'));
     }
   };
 
-  const validatePW = () => {
-    if (password.length >= 4) {
-      setIsValidPW(true);
+  const validateUserName = () => {
+    if (userinfo.length >= 6) {
+      setIsValidInfo(true);
+      dispatch(setError(null));
     } else {
-      setIsValidPW(false);
-      dispatch(setError('Please enter valid password'));
+      setIsValidInfo(false);
+      dispatch(setError('Please enter valid phone, user name or e-mail'));
+    }
+  };
+  const validatePhone = () => {
+    var re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+
+    return re.test(userinfo);
+  };
+
+  const validateCrediential = () => {
+    if (userinfo.includes('@')) {
+      setcredientialType('email');
+      validateEmail();
+    } else if (isNumeric(userinfo)) {
+      setcredientialType('phone');
+      if (validatePhone()) {
+        setIsValidInfo(true);
+        dispatch(setError(null));
+      } else {
+        setIsValidInfo(false);
+        dispatch(setError('Please enter valid phone, user name or e-mail'));
+      }
+    } else {
+      setcredientialType('username');
+      validateUserName();
     }
   };
 
@@ -65,12 +99,19 @@ const HelpScreen = ({route, navigation}) => {
       <AuthInput
         label={'@131887135'}
         keyboardType={'email-address'}
-        state={email}
-        onChangeText={setEmail}
-        onEndEditing={validateEmail}
+        state={userinfo}
+        onChangeText={setUserInfo}
+        onEndEditing={validateCrediential}
       />
-
-      <AuthButton label={'Next'}></AuthButton>
+      <View style={styles.errormessagecontainer}>
+        {user.errorMessage ? (
+          <Text style={{fontSize: 16, color: 'red'}}>{user.errorMessage}</Text>
+        ) : null}
+      </View>
+      <AuthButton
+        label={'Next'}
+        pressable={isValidInfo}
+        onPress={() => helpUser()}></AuthButton>
 
       <Text style={styles.ortext}>
         ----------------------------OR--------------------------------

@@ -7,6 +7,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import AuthContainer from '../Auth/AuthContainer';
 import {useDispatch, useSelector} from 'react-redux';
 import {setError, userSelector} from '../../redux/userReducer';
+import BlogContainer from '../Blog/BlogContainer';
 
 const Main = createStackNavigator();
 
@@ -50,7 +51,11 @@ export const MainContainer = () => {
             />
           ) : (
             <>
-              <Main.Screen name="Collection" component={CollectionContainer} />
+              <Main.Screen
+                name="Blog"
+                component={BlogContainer}
+                options={{headerShown: false}}
+              />
             </>
           )}
         </Main.Navigator>

@@ -23,7 +23,7 @@ const PasswordScreen = ({route, navigation}) => {
 
   const dispatch = useDispatch();
   const createPassword = () => {
-    if (!isvalidPW || !password || password.length < 4) {
+    if (!isvalidPW || !password || password.length < 6) {
       dispatch(setError('Please enter valid password'));
     } else {
       if (route.params.country) {
@@ -44,7 +44,7 @@ const PasswordScreen = ({route, navigation}) => {
     }
   };
   const signUpUser = () => {
-    if (!isvalidPW || !password || password.length < 4) {
+    if (!isvalidPW || !password || password.length < 6) {
       dispatch(setError('Please enter valid email and password'));
     } else {
       createPassword();
@@ -57,7 +57,7 @@ const PasswordScreen = ({route, navigation}) => {
   }, [password]);
 
   const validatePW = () => {
-    if (password.length >= 4) {
+    if (password.length >= 6) {
       setIsValidPW(true);
       dispatch(setError(null));
     } else {

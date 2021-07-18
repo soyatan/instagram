@@ -11,12 +11,14 @@ import {getCountry} from 'react-native-localize';
 import {ImageLink} from '../../Assets/Images';
 import {setError, userSelector} from '../../redux/userReducer';
 import {Icon} from '../../Assets/Svgs/icon';
+import {signInUser} from '../../API/firebase';
+import {loginWithFacebook} from '../../API/facebook';
 
 const SignInScreen = ({route, navigation}) => {
   const user = useSelector(userSelector);
   const [country, setcountry] = useState('');
   const [initializing, setInitializing] = useState(true);
-
+  const [showPassword, setshowPassword] = useState(false);
   const [isValidInfo, setIsValidInfo] = useState(false);
   const [isvalidPW, setIsValidPW] = useState(true);
 
@@ -45,11 +47,11 @@ const SignInScreen = ({route, navigation}) => {
       !isvalidPW ||
       !userinfo ||
       !password ||
-      password.length < 4
+      password.length < 6
     ) {
       dispatch(setError('Please enter valid email and password'));
     } else {
-      signInUser(dispatch, userinfo, password);
+      signInUser(dispatch, credientialType, userinfo, password);
     }
   };
 
@@ -76,7 +78,7 @@ const SignInScreen = ({route, navigation}) => {
   };
 
   const validateUserName = () => {
-    if (userinfo.length >= 4) {
+    if (userinfo.length >= 6) {
       setIsValidInfo(true);
       dispatch(setError(null));
     } else {
@@ -102,15 +104,22 @@ const SignInScreen = ({route, navigation}) => {
       validateUserName();
     }
   };
+
   const validatePW = () => {
-    if (password.length >= 4) {
+    if (password.length >= 6) {
       setIsValidPW(true);
     } else {
       setIsValidPW(false);
       dispatch(setError('Please enter valid password'));
     }
   };
-
+  const switchShowPassword = () => {
+    if (showPassword) {
+      setshowPassword(false);
+    } else {
+      setshowPassword(true);
+    }
+  };
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -129,9 +138,10 @@ const SignInScreen = ({route, navigation}) => {
       <AuthInput
         label={'Password'}
         iconname={'Hide'}
+        iconOnPress={() => switchShowPassword()}
         state={password}
         onChangeText={setPassword}
-        secureTextEntry={true}
+        secureTextEntry={!showPassword ? true : null}
         onEndEditing={validatePW}
         keyboardType={'default'}
       />
@@ -156,7 +166,9 @@ const SignInScreen = ({route, navigation}) => {
       <Text style={styles.ortext}>
         ----------------------------OR--------------------------------
       </Text>
-      <TouchableOpacity style={styles.smalltextscontainer}>
+      <TouchableOpacity
+        onPress={() => loginWithFacebook(dispatch)}
+        style={styles.smalltextscontainer}>
         <Icon name={'Facebook'} scale={0.7} />
         <Text style={styles.bluetext}> Log in with Facebook</Text>
       </TouchableOpacity>

@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import auth, {firebase} from '@react-native-firebase/auth';
 import {
   View,
   SafeAreaView,
@@ -11,42 +12,19 @@ import {
 } from 'react-native';
 
 import storage from '@react-native-firebase/storage';
+import {useSelector} from 'react-redux';
+import {userSelector} from '../redux/userReducer';
 
-export const uploadImagezz = async image => {
-  const filename = image.substring(image.lastIndexOf('/') + 1);
-  const uploadUri =
-    Platform.OS === 'ios' ? image.replace('file://', '') : image;
-
-  const task = storage().ref(filename).putFile(uploadUri);
-  // set progress state
-
-  try {
-    await task;
-  } catch (e) {
-    console.error(e);
-  }
-  Alert.alert(
-    'Photo uploaded!',
-    'Your photo has been uploaded to Firebase Cloud Storage!',
-  );
-  //setImage(null);
-};
-
-export const uploadImage = async image => {
+export const uploadImage = async (image, user) => {
   const filename = image.substring(image.lastIndexOf('/') + 1);
   console.log('imajh', image);
-  /*
-  const childPath = `posts/${
-    firebase.auth().currentUser.uid
-  }/${Math.random().toString(40)}`;*/
+
+  const childPath = `${user.userId}/${Math.random().toString(36)}`;
 
   const uploadUri =
     Platform.OS === 'ios' ? image.replace('file://', '') : image;
 
-  const task = storage()
-    .ref(`userPosts/134728`)
-    .child('Bokbogei')
-    .putFile(uploadUri);
+  const task = storage().ref(`userPosts`).child(childPath).putFile(uploadUri);
 
   const taskProgress = snapshot => {
     console.log(`transferred: ${snapshot.bytesTransfered}`);

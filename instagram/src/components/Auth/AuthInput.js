@@ -5,6 +5,7 @@ import {View, TextInput, Image} from 'react-native';
 import {Icon} from '../../Assets/Svgs/icon';
 
 import styles from './styles';
+import {TouchableIcon} from './../../Assets/Svgs/touchableIcon';
 
 export default AuthInput = ({
   iconname,
@@ -14,6 +15,7 @@ export default AuthInput = ({
   onEndEditing,
   state,
   onChangeText,
+  iconOnPress,
 }) => {
   return (
     <>
@@ -32,7 +34,9 @@ export default AuthInput = ({
           keyboardType={keyboardType}
           onEndEditing={onEndEditing}
         />
-        {iconname ? <Icon name={iconname} scale={1} /> : null}
+        {iconname ? (
+          <TouchableIcon name={iconname} scale={1} onPress={iconOnPress} />
+        ) : null}
       </View>
     </>
   );

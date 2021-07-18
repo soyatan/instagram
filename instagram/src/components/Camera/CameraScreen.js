@@ -18,18 +18,23 @@ import {PreviewScreen} from './PreviewScreen';
 import {CameraGrid} from './CameraGrid';
 import ImagePicker from 'react-native-image-crop-picker';
 import {uploadImage} from './../../API/storageFunctions';
+import {useSelector} from 'react-redux';
+import {userSelector} from '../../redux/userReducer';
+
 const CameraScreen = () => {
+  const user = useSelector(userSelector);
+  console.log(user);
   const [imageUri, setimageUri] = useState('');
   const [isTaking, setisTaking] = useState(true);
   const camera = useRef();
 
   useEffect(() => {
     if (imageUri) {
-      chooseFromGallery();
+      saveToRoll();
     }
   }, [imageUri]);
 
-  const chooseFromGallery = async () => {
+  const saveToRoll = async () => {
     await ImagePicker.openCropper({
       path: imageUri,
       width: 250,
@@ -39,7 +44,7 @@ const CameraScreen = () => {
     })
       .then(image => {
         requestStoragePermission(() => CameraRoll.save(image.path, 'photo'));
-        uploadImage(image.path);
+        uploadImage(image.path, user);
       })
       .then(() => {
         //setimageUri('');

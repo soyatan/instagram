@@ -8,9 +8,9 @@ const INITIAL_STATE = {
 //selector
 export const storySelector = state => state.storyState;
 
-export const SET_STORIES = 'user/set';
-export const UPDATE_STORY = 'error/set';
-export const ADD_STORY = 'error&user/set';
+export const SET_STORIES = 'set/story';
+export const UPDATE_STORY = 'update/story';
+export const ADD_STORY = 'add/story';
 
 export const setStories = (userName, userId, loginType) => {
   return {

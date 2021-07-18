@@ -7,10 +7,12 @@ import {persistStore, persistReducer} from 'redux-persist';
 
 import {userReducer} from './userReducer';
 import {storyReducer} from './storyReducer';
+import {postsReducer} from './postsReducer';
 
 const combinedReducer = combineReducers({
   userState: userReducer,
   storyState: storyReducer,
+  postsState: postsReducer,
 });
 
 let persistedReducer = combinedReducer;

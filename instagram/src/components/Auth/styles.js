@@ -135,6 +135,9 @@ export default styles = StyleSheet.create({
   bottomtextcontainer: {
     marginTop: h * 0.3,
   },
+  bottomtextcontainerdeep: {
+    marginTop: h * 0.55,
+  },
 
   smalltextscontainer: {
     height: h * 0.05,
