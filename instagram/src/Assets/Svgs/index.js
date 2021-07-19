@@ -20,6 +20,9 @@ import User from './user.svg';
 import Comment from './comment.svg';
 import Favorite from './favorite.svg';
 import Message from './messenger.svg';
+import Left from './left-arrow.svg';
+import Right from './right-arrow.svg';
+
 export const SVGS = {
   Hide,
   Like,
@@ -43,4 +46,6 @@ export const SVGS = {
   Three_Dots,
   Comment,
   Favorite,
+  Left,
+  Right,
 };

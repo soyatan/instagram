@@ -12,6 +12,8 @@ import {BlogHeader} from '../Blog/BlogHeader';
 import {BlogFooter} from './../Blog/BlogFooter';
 import CameraScreen from '../Camera/CameraScreen';
 
+import PostContainer from '../Post/PostContainer';
+
 const Blog = createStackNavigator();
 
 const BlogContainer = () => {

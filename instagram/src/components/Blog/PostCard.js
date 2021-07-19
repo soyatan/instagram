@@ -7,7 +7,7 @@ import {TouchableIcon} from './../../Assets/Svgs/touchableIcon';
 import {ImageLink} from './../../Assets/Images/index';
 import {Icon} from './../../Assets/Svgs/icon';
 
-export const PostCard = () => {
+export const PostCard = item => {
   const [fullDescriptionShown, setfullDescriptionShown] = useState(false);
   const posts = [
     {
@@ -25,7 +25,7 @@ export const PostCard = () => {
   const dummy =
     'Necati_soyaNecati_soyataNecati_soyataNecati_soyataNecati_soyataNecati_soyataNecati_soyataNecati_soyataNecati_soyataNecati_soyataNecati_soyatata';
   return (
-    <ScrollView style={styles.postcardcontainer}>
+    <View style={styles.postcardcontainer}>
       <View style={styles.postcardtopcontainer}>
         <ProfilePhotoSmall />
         <View style={styles.doubletextstack}>
@@ -90,6 +90,6 @@ export const PostCard = () => {
         View all 123 comments
       </Text>
       <Text style={styles.datetext}>16 hours ago</Text>
-    </ScrollView>
+    </View>
   );
 };

@@ -1,9 +1,4 @@
-const INITIAL_STATE = {
-  stories: [
-    {key: 1, isSeen: false},
-    {key: 2, isSeen: true},
-  ],
-};
+const INITIAL_STATE = [];
 
 //selector
 export const postsSelector = state => state.postsState;
@@ -21,15 +16,13 @@ export const fetchPosts = userId => {
     },
   };
 };
-export const fetchPostsRequest = userId => {
+export const fetchPostsRequest = () => {
   return {
     type: FETCH_POSTS_REQUEST,
-    payload: {
-      userId,
-    },
   };
 };
 export const setPosts = posts => {
+  console.log(posts);
   return {
     type: SET_POSTS,
     payload: {
@@ -50,7 +43,7 @@ export const addPost = post => {
 export const postsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case SET_POSTS:
-      return {};
+      return action.payload.posts;
 
     default:
       return state;

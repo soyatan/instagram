@@ -8,33 +8,30 @@ import {
   PermissionsAndroid,
 } from 'react-native';
 import {RNCamera} from 'react-native-camera';
-import {dirPicutures} from '../../API/fsFunctions';
 import styles from './styles';
-import CameraRoll from '@react-native-community/cameraroll';
-import {requestStoragePermission} from '../../API/requestPermission';
 import {CaptureButton} from './CaptureButton';
 import {ConfirmButton} from './ConfirmButton';
 import {PreviewScreen} from './PreviewScreen';
 import {CameraGrid} from './CameraGrid';
 import ImagePicker from 'react-native-image-crop-picker';
-import {uploadImage} from './../../API/storageFunctions';
 import {useSelector} from 'react-redux';
 import {userSelector} from '../../redux/userReducer';
 
-const CameraScreen = () => {
+const CameraScreen = ({navigation}) => {
   const user = useSelector(userSelector);
-  console.log(user);
+
   const [imageUri, setimageUri] = useState('');
   const [isTaking, setisTaking] = useState(true);
   const camera = useRef();
 
   useEffect(() => {
     if (imageUri) {
-      saveToRoll();
+      editImage();
+      //navigation.navigate('Post', {uri: imageUri});
     }
   }, [imageUri]);
 
-  const saveToRoll = async () => {
+  const editImage = async () => {
     await ImagePicker.openCropper({
       path: imageUri,
       width: 250,
@@ -43,17 +40,18 @@ const CameraScreen = () => {
       freeStyleCropEnabled: false,
     })
       .then(image => {
-        requestStoragePermission(() => CameraRoll.save(image.path, 'photo'));
-        uploadImage(image.path, user);
+        //requestStoragePermission(() => CameraRoll.save(image.path, 'photo'));
+        //uploadImage(image.path, user);
+        navigation.navigate('Post', {
+          screen: 'PostEdit',
+          params: {source: image.path},
+        });
       })
-      .then(() => {
-        //setimageUri('');
-      })
+
       .catch(error => {
         console.log(error);
       });
   };
-  console.log('uristate', imageUri);
 
   const takePicture = async function () {
     console.log('CHEESE');
@@ -72,7 +70,7 @@ const CameraScreen = () => {
     }
   };
 
-  return isTaking ? (
+  return (
     <View style={styles.cameracontainer}>
       <RNCamera
         ref={camera}
@@ -98,11 +96,6 @@ const CameraScreen = () => {
         }}
       </RNCamera>
       <CameraGrid />
-    </View>
-  ) : (
-    <View style={styles.cameracontainer}>
-      <PreviewScreen source={{uri: imageUri}} />
-      <ConfirmButton onPress={() => setimageUri('')} />
     </View>
   );
 };

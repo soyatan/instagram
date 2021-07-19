@@ -19,6 +19,8 @@ export default styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
+  photopreview: {width: w * 0.2, height: w * 0.2, borderWidth: 1},
+
   capturecontainer: {
     flex: 0,
     position: 'absolute',

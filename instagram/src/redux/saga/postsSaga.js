@@ -12,12 +12,13 @@ import {
   effectTypes,
   takeLatest,
 } from 'redux-saga/effects';
+import firestore from '@react-native-firebase/firestore';
 import {userSelector} from '../userReducer';
 import database from '@react-native-firebase/database';
-
+import auth, {firebase} from '@react-native-firebase/auth';
 import {eventChannel} from 'redux-saga';
 import {useFocusEffect} from '@react-navigation/native';
-import {FETCH_POSTS_REQUEST} from '../postsReducer';
+import {FETCH_POSTS_REQUEST, setPosts} from '../postsReducer';
 
 function connect(userId) {
   return new Promise(resolve => {
@@ -48,16 +49,23 @@ export function* resetCoins() {
 }
 
 export function* fetchPostsFromDb() {
-  const coins = yield select(coinSelector);
-  const {userId, popCoin} = yield select(userSelector);
+  console.log('fething posts');
+  const user = yield select(userSelector);
 
   try {
-    database()
-      .ref('users/' + userId)
-      .update({
-        popCoin: popCoin + coins,
-      })
-      .then(yield all([call(updateCoin), call(resetCoins)]));
+    let posts = [];
+    const postList = yield firestore()
+      .collection('Posts')
+      .doc(user.userId)
+      .collection('UserPosts')
+      .get()
+      .then(function (snapshot) {
+        snapshot.forEach(snapshotquery => {
+          posts.push(snapshotquery.data());
+        });
+        return posts;
+      });
+    yield put(setPosts(postList));
   } catch (error) {
     console.log(error);
   }

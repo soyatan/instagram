@@ -13,6 +13,7 @@ export default styles = StyleSheet.create({
     //justifyContent: 'space-around',
     alignItems: 'center',
     backgroundColor: Colors.lightGray,
+    justifyContent: 'center',
   },
   blogheader: {
     width: '100%',

@@ -5,7 +5,29 @@ import database from '@react-native-firebase/database';
 import firestore from '@react-native-firebase/firestore';
 import {FETCH_POSTS_REQUEST} from '../redux/postsReducer';
 import {fetchPostsRequest} from './../redux/postsReducer';
+
 const usersCollection = firestore().collection('Users');
+
+export const savePost = (link, caption, userId, navigation) => {
+  const childPath = Math.random().toString(36);
+  let newPost = {};
+  newPost.link = link;
+  newPost.caption = caption;
+  newPost.likers = [];
+  newPost.favoriters = [];
+  newPost.postdate = Date.now();
+
+  firestore()
+    .collection('Posts')
+    .doc(userId)
+    .collection('UserPosts')
+    .doc(childPath)
+    .set(newPost)
+    .then(() => {
+      console.log('post created');
+      navigation.navigate('Welcome');
+    });
+};
 
 export const createUser = (
   dispatch,
