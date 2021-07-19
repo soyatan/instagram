@@ -8,16 +8,9 @@ import {
   PermissionsAndroid,
   TextInput,
 } from 'react-native';
-import {RNCamera} from 'react-native-camera';
-import {dirPicutures} from '../../API/fsFunctions';
 
 import CameraRoll from '@react-native-community/cameraroll';
 import {requestStoragePermission} from '../../API/requestPermission';
-import {CaptureButton} from '../Camera/CaptureButton';
-import {ConfirmButton} from '../Camera/ConfirmButton';
-import {PreviewScreen} from '../Camera/PreviewScreen';
-import {CameraGrid} from '../Camera/CameraGrid';
-import ImagePicker from 'react-native-image-crop-picker';
 
 import {useSelector} from 'react-redux';
 import {userSelector} from '../../redux/userReducer';
@@ -65,7 +58,7 @@ const CreatePostScreen = ({route, navigation}) => {
         />
       </View>
       <View style={styles.firstrow}>
-        <ProfilePhotoSmall />
+        <ProfilePhotoSmall source={user.pplink} />
         <TextInput
           style={styles.textinput}
           label={'Write a caption...'}

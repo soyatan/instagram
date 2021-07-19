@@ -15,6 +15,7 @@ import CameraScreen from '../Camera/CameraScreen';
 import PostContainer from '../Post/PostContainer';
 
 import AddPhotoScreenPP from '../Auth/AddPhotoScreenPP';
+import BottomModal from './BottomModal';
 
 const Blog = createStackNavigator();
 

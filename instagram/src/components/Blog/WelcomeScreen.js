@@ -8,14 +8,13 @@ import {PostCard} from './PostCard';
 import styles from './styles';
 import {UserCard} from './UserCard';
 import {fetchPostsRequest, postsSelector} from './../../redux/postsReducer';
+import BottomModal from './BottomModal';
 
 export const WelcomeScreen = () => {
   const dispatch = useDispatch();
-
+  const [isModalShown, setisModalShown] = useState(false);
   const posts = useSelector(postsSelector);
   const user = useSelector(userSelector);
-  console.log(user);
-  console.log(posts);
 
   //useEffect(() => {}, [posts]);
 
@@ -26,30 +25,42 @@ export const WelcomeScreen = () => {
   const [initializing, setinitializing] = useState(true);
 
   return (
-    <View style={styles.container}>
-      {initializing ? null : <StoryContainer />}
-      {isNew ? (
-        <>
-          <Text style={styles.bigblacktext}>Welcome to Instagram</Text>
-          <View style={styles.longtextcontainer}>
-            <Text style={styles.shadytext}>
-              Follow people to start seeing the photos and videos they share.
-            </Text>
-          </View>
-          <UserCard />
-        </>
-      ) : (
-        <FlatList
-          style={{flex: 1, width: '100%'}}
-          data={posts}
-          nestedScrollEnabled={true}
-          scrollEnabled={true}
-          renderItem={({item}) => {
-            return <PostCard item={item} />;
-          }}
-          keyExtractor={(item, index) => index.toString()}
-        />
-      )}
-    </View>
+    <>
+      <View style={styles.container}>
+        {initializing ? null : <StoryContainer />}
+        {isNew ? (
+          <>
+            <Text style={styles.bigblacktext}>Welcome to Instagram</Text>
+            <View style={styles.longtextcontainer}>
+              <Text style={styles.shadytext}>
+                Follow people to start seeing the photos and videos they share.
+              </Text>
+            </View>
+            <UserCard />
+          </>
+        ) : (
+          <FlatList
+            style={{flex: 1, width: '100%'}}
+            data={posts}
+            nestedScrollEnabled={true}
+            scrollEnabled={true}
+            renderItem={({item}) => {
+              return (
+                <PostCard
+                  item={item}
+                  setisModalShown={setisModalShown}
+                  pplink={user.pplink}
+                />
+              );
+            }}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        )}
+      </View>
+      <BottomModal
+        isModalShown={isModalShown}
+        setisModalShown={setisModalShown}
+      />
+    </>
   );
 };

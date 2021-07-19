@@ -85,6 +85,17 @@ export default styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
   },
+  commentcontainer: {
+    width: '100%',
+
+    borderTopColor: Colors.mainGray,
+
+    height: h * 0.05,
+    backgroundColor: Colors.lightGray,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
   logotext: {
     fontSize: w * 0.07,
     fontFamily: Families.stylish,
@@ -138,6 +149,14 @@ export default styles = StyleSheet.create({
     borderRadius: w,
     width: w * 0.1,
     height: w * 0.1,
+    borderWidth: 0.5,
+    marginHorizontal: w * 0.03,
+    marginBottom: w * 0.01,
+  },
+  profilephotosmallercontainer: {
+    borderRadius: w,
+    width: w * 0.06,
+    height: w * 0.06,
     borderWidth: 0.5,
     marginHorizontal: w * 0.03,
     marginBottom: w * 0.01,
