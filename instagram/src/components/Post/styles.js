@@ -33,6 +33,35 @@ export default styles = StyleSheet.create({
     paddingHorizontal: w * 0.02,
     borderBottomWidth: 1,
   },
+  pppreviewcontainer: {
+    marginTop: w * 0.2,
+    alignItems: 'center',
+
+    width: '100%',
+    flexDirection: 'row',
+    height: w,
+    paddingHorizontal: w * 0.02,
+  },
+  galleryrow: {
+    alignItems: 'center',
+    marginTop: w * 0.2,
+    width: '100%',
+
+    height: h * 0.1,
+    paddingHorizontal: w * 0.02,
+  },
+  gallerygridrow: {
+    alignItems: 'center',
+
+    width: '100%',
+    flex: 1,
+    backgroundColor: 'red',
+    flexDirection: 'row',
+    height: h * 0.1,
+    paddingHorizontal: w * 0.01,
+    borderBottomWidth: 1,
+    marginBottom: w * 0.01,
+  },
   imageBackground: {
     width: '150',
     height: '150',
@@ -95,5 +124,10 @@ export default styles = StyleSheet.create({
     height: '100%',
 
     borderRadius: w * 0.05,
+  },
+  previewcontainer: {
+    width: w,
+    height: h * 0.5,
+    borderWidth: 1,
   },
 });

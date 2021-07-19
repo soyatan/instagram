@@ -14,7 +14,7 @@ import PasswordScreen from './PasswordScreen';
 import FinalizeScreen from './FinalizeScreen';
 
 import EmailScreen from './EmailScreen';
-import AddPhotoScreen from './AddPhotoScreen';
+
 import CameraScreen from '../Camera/CameraScreen';
 import {WelcomeScreen} from '../Blog/WelcomeScreen';
 import {BlogHeader} from '../Blog/BlogHeader';
@@ -49,8 +49,6 @@ const AuthContainer = () => {
         <Auth.Screen name="Password" component={PasswordScreen} />
         <Auth.Screen name="Finalize" component={FinalizeScreen} />
         <Auth.Screen name="Email" component={EmailScreen} />
-
-        <Auth.Screen name="Photo" component={AddPhotoScreen} />
       </Auth.Navigator>
     </>
   );

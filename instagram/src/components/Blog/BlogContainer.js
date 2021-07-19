@@ -14,15 +14,19 @@ import CameraScreen from '../Camera/CameraScreen';
 
 import PostContainer from '../Post/PostContainer';
 
+import AddPhotoScreenPP from '../Auth/AddPhotoScreenPP';
+
 const Blog = createStackNavigator();
 
 const BlogContainer = () => {
   return (
     <>
+      <StatusBar barStyle={'dark-content'} backgroundColor={Colors.lightGray} />
       <BlogHeader />
       <Blog.Navigator screenOptions={{headerShown: false}}>
         <Blog.Screen name="Welcome" component={WelcomeScreen} />
         <Blog.Screen name="Camera" component={CameraScreen} />
+        <Blog.Screen name="Photo" component={AddPhotoScreenPP} />
       </Blog.Navigator>
       <BlogFooter />
     </>

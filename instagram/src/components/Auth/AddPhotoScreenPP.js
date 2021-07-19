@@ -15,40 +15,25 @@ import {Icon} from '../../Assets/Svgs/icon';
 import ImagePicker from 'react-native-image-crop-picker';
 import {imageGalleryLaunch} from '../../API/launchImageGallery';
 
-const AddPhotoScreen = ({route, navigation}) => {
-  const dispatch = useDispatch();
-  const onFileSelected = images => {
-    close;
-  };
-  const addPhone = () => {
-    console.log('No phone');
-  };
+const AddPhotoScreenPP = ({route, navigation}) => {
   const chooseFromGallery = () => {
     ImagePicker.openPicker({
       width: 250,
       height: 250,
       cropping: true,
       freeStyleCropEnabled: true,
+      mediaType: 'photo',
+      useFrontCamera: true,
     })
-      .then(images => {})
+      .then(image => {
+        navigation.navigate('Post', {
+          screen: 'PPEdit',
+          params: {source: image.path},
+        });
+      })
       .catch(error => {
         console.log(error);
       });
-  };
-  const completeSignup = () => {
-    if (route.params.country) {
-      navigation.navigate('Camera', {
-        country: route.params.country,
-        username: route.params.username,
-        password: route.params.password,
-      });
-    } else {
-      navigation.navigate('Camera', {
-        country: '',
-        username: route.params.username,
-        password: route.params.password,
-      });
-    }
   };
 
   return (
@@ -66,7 +51,7 @@ const AddPhotoScreen = ({route, navigation}) => {
       </View>
 
       <AuthButton
-        onPress={() => navigation.navigate('Camera')}
+        onPress={() => navigation.navigate('Camera', {type: 'pp'})}
         label={'Add a Photo'}
         pressable={true}></AuthButton>
       <AuthButton
@@ -75,16 +60,11 @@ const AddPhotoScreen = ({route, navigation}) => {
         pressable={true}></AuthButton>
       <TouchableOpacity
         style={styles.smalltextscontainer}
-        onPress={() => navigation.navigate('Blog')}>
+        onPress={() => navigation.navigate('Welcome')}>
         <Text style={styles.bluetext}> Skip</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.smalltextscontainer}
-        onPress={() => navigation.navigate('Blog')}>
-        <Text style={styles.bluetext}> TRY DATABASE</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-export default AddPhotoScreen;
+export default AddPhotoScreenPP;

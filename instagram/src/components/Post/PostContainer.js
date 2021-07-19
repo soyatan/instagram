@@ -10,6 +10,8 @@ import {BlogHeader} from '../Blog/BlogHeader';
 import {BlogFooter} from '../Blog/BlogFooter';
 import CameraScreen from '../Camera/CameraScreen';
 import CreatePostScreen from './CreatePostScreen';
+import NewPostScreen from './NewPostScreen';
+import CreatePPScreen from './CreatePPScreen';
 
 const Post = createStackNavigator();
 
@@ -18,6 +20,8 @@ const PostContainer = () => {
     <>
       <Post.Navigator screenOptions={{headerShown: false}}>
         <Post.Screen name="PostEdit" component={CreatePostScreen} />
+        <Post.Screen name="NewPost" component={NewPostScreen} />
+        <Post.Screen name="PPEdit" component={CreatePPScreen} />
       </Post.Navigator>
     </>
   );

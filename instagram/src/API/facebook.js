@@ -24,6 +24,7 @@ export const addUserToDb = (user, dispatch) => {
   account.username = user.name;
   account.phonenumber = null;
   account.country = 'United States';
+  account.pplink = null;
 
   firestore()
     .collection('Users')
@@ -47,6 +48,7 @@ export const addUserToDb = (user, dispatch) => {
               newAccount.email,
               'facebook',
               null,
+              newAccount.pplink,
             ),
           );
         })
@@ -76,6 +78,7 @@ export const checkUserInDb = (user, dispatch) => {
               newAccount.email,
               'facebook',
               null,
+              newAccount.pplink,
             ),
           );
         } else {

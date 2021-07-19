@@ -15,19 +15,19 @@ import CameraRoll from '@react-native-community/cameraroll';
 import {requestStoragePermission} from '../../API/requestPermission';
 import {CaptureButton} from '../Camera/CaptureButton';
 import {ConfirmButton} from '../Camera/ConfirmButton';
-import {PreviewScreen} from '../Camera/PreviewScreen';
 import {CameraGrid} from '../Camera/CameraGrid';
 import ImagePicker from 'react-native-image-crop-picker';
 
 import {useSelector} from 'react-redux';
 import {userSelector} from '../../redux/userReducer';
 import styles from './styles';
-import {TouchableIcon} from './../../Assets/Svgs/touchableIcon';
-import {ProfilePhotoSmall} from './../Blog/ProfilePhotoSmall';
+import {TouchableIcon} from '../../Assets/Svgs/touchableIcon';
+import {ProfilePhotoSmall} from '../Blog/ProfilePhotoSmall';
 import {PhotoPreview} from '../Camera/PhotoPreview';
-import {uploadImage} from './../../API/storageFunctions';
+import {uploadImage, uploadPP} from '../../API/storageFunctions';
+import {PreviewScreen} from './../Camera/PreviewScreen';
 
-const CreatePostScreen = ({route, navigation}) => {
+const CreatePPScreen = ({route, navigation}) => {
   const user = useSelector(userSelector);
   const [location, setlocation] = useState('');
   const [image, setimage] = useState(null);
@@ -36,11 +36,11 @@ const CreatePostScreen = ({route, navigation}) => {
     setimage(route.params.source);
   }, [route]);
 
-  const saveToRollandSendPost = async () => {
+  const saveToRollandSendPP = async () => {
     if (image) {
       try {
         requestStoragePermission(() => CameraRoll.save(image, 'photo'));
-        uploadImage(image, user, caption, location, navigation);
+        uploadPP(image, user, navigation);
       } catch (error) {
         console.log(error);
       }
@@ -57,45 +57,17 @@ const CreatePostScreen = ({route, navigation}) => {
           name={'Left'}
           scale={1.4}
         />
-        <Text style={styles.bigblacktext}>New Post</Text>
+        <Text style={styles.bigblacktext}>New Profile Picture</Text>
         <TouchableIcon
           name={'Checked'}
           scale={1.4}
-          onPress={() => saveToRollandSendPost()}
+          onPress={() => saveToRollandSendPP()}
         />
       </View>
-      <View style={styles.firstrow}>
-        <ProfilePhotoSmall />
-        <TextInput
-          style={styles.textinput}
-          label={'Write a caption...'}
-          placeholder={'Write a caption...'}
-          autoCorrect={false}
-          autoCapitalize="none"
-          placeholderTextColor="black"
-          selectionColor="blue"
-          onChangeText={setcaption}
-          value={caption}
-          keyboardType={'default'}
-        />
-        <PhotoPreview source={route.params.source} />
-      </View>
-
-      <View style={styles.secondrow}>
-        <TextInput
-          style={styles.textinput}
-          label={'Add Location...'}
-          placeholder={'Add Location...'}
-          autoCorrect={false}
-          autoCapitalize="none"
-          placeholderTextColor="black"
-          selectionColor="blue"
-          onChangeText={setlocation}
-          value={location}
-          keyboardType={'default'}
-        />
+      <View style={styles.pppreviewcontainer}>
+        <PreviewScreen source={{uri: route.params.source}} />
       </View>
     </View>
   );
 };
-export default CreatePostScreen;
+export default CreatePPScreen;

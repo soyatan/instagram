@@ -14,9 +14,15 @@ import {
 import storage from '@react-native-firebase/storage';
 import {useSelector} from 'react-redux';
 import {userSelector} from '../redux/userReducer';
-import {savePost} from './firebase';
+import {savePost, savePP} from './firebase';
 
-export const uploadImage = async (image, user, caption, navigation) => {
+export const uploadImage = async (
+  image,
+  user,
+  caption,
+  location,
+  navigation,
+) => {
   const childPath = `${user.userId}/${Math.random().toString(36)}`;
 
   const uploadUri =
@@ -30,7 +36,35 @@ export const uploadImage = async (image, user, caption, navigation) => {
 
   const taskCompleted = snapshot => {
     snapshot.ref.getDownloadURL().then(snapshot => {
-      savePost(snapshot, caption, user.userId, navigation);
+      savePost(snapshot, caption, user.userId, location, navigation);
+    });
+  };
+
+  const taskError = snapshot => {
+    console.log(snapshot);
+  };
+  task.on('state_changed', taskProgress, taskError, taskCompleted);
+  // set progress state
+};
+
+export const uploadPP = async (image, user, navigation) => {
+  const childPath = user.userId;
+
+  const uploadUri =
+    Platform.OS === 'ios' ? image.replace('file://', '') : image;
+
+  const task = storage()
+    .ref(`profilePhotos`)
+    .child(childPath)
+    .putFile(uploadUri);
+
+  const taskProgress = snapshot => {
+    //console.log(`transferred: ${snapshot.bytesTransfered}`);
+  };
+
+  const taskCompleted = snapshot => {
+    snapshot.ref.getDownloadURL().then(snapshot => {
+      savePP(snapshot, user.userId, navigation);
     });
   };
 

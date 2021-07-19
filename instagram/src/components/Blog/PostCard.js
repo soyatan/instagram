@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, ScrollView, Text, Image} from 'react-native';
 import styles from './styles';
 
@@ -7,37 +7,55 @@ import {TouchableIcon} from './../../Assets/Svgs/touchableIcon';
 import {ImageLink} from './../../Assets/Images/index';
 import {Icon} from './../../Assets/Svgs/icon';
 
-export const PostCard = item => {
-  const [fullDescriptionShown, setfullDescriptionShown] = useState(false);
-  const posts = [
-    {
-      mediaID: 12312312,
-      senderUserName: 'Necati_Soyata',
-      description:
-        'Those days were amazing to have and some unbelieveably small stuff going around there, however it should be still the one of the best occupations',
-      postDate: 1626363512070,
-      likers: [123123, 123123, 123123],
-      favoriters: [1231234, 123123123, 2131231],
-      comments: [123123, 12312312, 3123123, 12312],
-    },
-  ];
+export const PostCard = ({item}) => {
+  const [timeTag, settimeTag] = useState('');
+  useEffect(() => {
+    const calculateTimeText = item => {
+      const timePassed = (-item.postdate + Date.now()) / 1000;
 
-  const dummy =
-    'Necati_soyaNecati_soyataNecati_soyataNecati_soyataNecati_soyataNecati_soyataNecati_soyataNecati_soyataNecati_soyataNecati_soyataNecati_soyatata';
+      if (Math.round(timePassed) <= 60) {
+        settimeTag(`${Math.round(timePassed)} seconds ago`);
+      } else if (Math.round(timePassed) <= 3600) {
+        settimeTag(`${Math.round(timePassed / 60)} minutes ago`);
+      } else if (
+        (Math.round(timePassed) > 3600) &
+        (Math.round(timePassed) < 7200)
+      ) {
+        settimeTag(`1 hour ago`);
+      } else if (
+        (Math.round(timePassed) >= 7200) &
+        (Math.round(timePassed) < 86400)
+      ) {
+        settimeTag(`${Math.round(timePassed / 3600)} hours ago`);
+      } else if (
+        (Math.round(timePassed) >= 86400) &
+        (Math.round(timePassed) < 172800)
+      ) {
+        settimeTag(`1 day ago`);
+      } else {
+        settimeTag(`${Math.round(timePassed / 86400)} days ago`);
+      }
+    };
+    if (item.postdate) {
+      calculateTimeText(item);
+    }
+  }, [item]);
+  const [fullDescriptionShown, setfullDescriptionShown] = useState(false);
+
   return (
     <View style={styles.postcardcontainer}>
       <View style={styles.postcardtopcontainer}>
-        <ProfilePhotoSmall />
+        <ProfilePhotoSmall source={item.pplink} />
         <View style={styles.doubletextstack}>
-          <Text style={styles.blacktext}>n_soyata</Text>
-          <Text>Ayasofya Müzesi - İstanbul </Text>
+          <Text style={styles.blacktext}>{item.posterName}</Text>
+          {item.location ? <Text>{item.location} </Text> : null}
         </View>
         <View style={styles.optionsbuttoncontainer}>
           <TouchableIcon name={'Three_Dots'} scale={1} />
         </View>
       </View>
       <View style={styles.postimagecontainer}>
-        <Image style={styles.image} source={ImageLink['imaj']} />
+        <Image style={styles.image} source={{uri: item.link}} />
       </View>
       <View style={styles.postcardbottomcontainer}>
         <View
@@ -63,14 +81,23 @@ export const PostCard = item => {
           <Icon name={'Favorite'} scale={1.3} />
         </View>
       </View>
-      <View style={styles.likecontainer}>
-        <Text>1000 Likes</Text>
-      </View>
+      {item.likers.length === 1 ? (
+        <View style={styles.likecontainer}>
+          <Text>1 Like</Text>
+        </View>
+      ) : item.likers.length > 1 ? (
+        <View style={styles.likecontainer}>
+          <Text> {item.likers.length} Likes </Text>
+        </View>
+      ) : null}
+
       <View style={styles.descriptioncontainer}>
-        {!fullDescriptionShown ? (
+        {!fullDescriptionShown && item.caption.length > 55 ? (
           <Text style={styles.blacktext} numberOfLines={2}>
-            {'Necati_soyata '}
-            <Text style={styles.commenttext}>{dummy.substring(0, 55)}</Text>
+            {`${item.posterName} `}
+            <Text style={styles.commenttext}>
+              {item.caption.substring(0, 55)}
+            </Text>
             <Text
               onPress={() => setfullDescriptionShown(true)}
               style={styles.shadytext}>
@@ -79,17 +106,26 @@ export const PostCard = item => {
           </Text>
         ) : (
           <Text style={styles.blacktext}>
-            {'Necati_soyata '}
-            <Text style={styles.commenttext}>{dummy}</Text>
+            {`${item.posterName} `}
+            <Text style={styles.commenttext}>{item.caption}</Text>
           </Text>
         )}
       </View>
-      <Text
-        onPress={() => setfullDescriptionShown(true)}
-        style={styles.shadytexttoleft}>
-        View all 123 comments
-      </Text>
-      <Text style={styles.datetext}>16 hours ago</Text>
+      {item.comments.length === 0 ? null : item.comments.length === 1 ? (
+        <Text
+          onPress={() => setfullDescriptionShown(true)}
+          style={styles.shadytexttoleft}>
+          View 1 comment
+        </Text>
+      ) : item.comments.length > 1 ? (
+        <Text
+          onPress={() => setfullDescriptionShown(true)}
+          style={styles.shadytexttoleft}>
+          {`View all ${item.comments.length} comments`}
+        </Text>
+      ) : null}
+
+      <Text style={styles.datetext}>{timeTag}</Text>
     </View>
   );
 };

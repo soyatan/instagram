@@ -20,37 +20,10 @@ import {eventChannel} from 'redux-saga';
 import {useFocusEffect} from '@react-navigation/native';
 import {FETCH_POSTS_REQUEST, setPosts} from '../postsReducer';
 
-function connect(userId) {
-  return new Promise(resolve => {
-    const databasef = database();
-    const connectionRef = databasef.ref('users/' + userId);
-    connectionRef.once('value', resolve);
-  });
-}
-
-export function* updateCoin() {
-  try {
-    const {userId, popCoin} = yield select(userSelector);
-    const snapshot = yield call(connect, userId);
-
-    const account = snapshot.val();
-    yield put(setCoins(account.popCoin));
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-export function* resetCoins() {
-  try {
-    yield put(resetCoinCounter());
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-export function* fetchPostsFromDb() {
+export function* fetchSelfPostsFromDb() {
   console.log('fething posts');
   const user = yield select(userSelector);
+  //console.log('user', user);
 
   try {
     let posts = [];
@@ -58,10 +31,16 @@ export function* fetchPostsFromDb() {
       .collection('Posts')
       .doc(user.userId)
       .collection('UserPosts')
+      .orderBy('postdate', 'desc')
       .get()
       .then(function (snapshot) {
         snapshot.forEach(snapshotquery => {
-          posts.push(snapshotquery.data());
+          posts.push({
+            ...snapshotquery.data(),
+            posterId: user.userId,
+            posterName: user.userName,
+            pplink: user.pplink,
+          });
         });
         return posts;
       });
@@ -72,7 +51,7 @@ export function* fetchPostsFromDb() {
 }
 
 export function* watchPostsSaga() {
-  yield takeLatest(FETCH_POSTS_REQUEST, fetchPostsFromDb);
+  yield takeLatest(FETCH_POSTS_REQUEST, fetchSelfPostsFromDb);
 }
 
 const postsSaga = [fork(watchPostsSaga)];

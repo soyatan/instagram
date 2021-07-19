@@ -13,6 +13,8 @@ export const WelcomeScreen = () => {
   const dispatch = useDispatch();
 
   const posts = useSelector(postsSelector);
+  const user = useSelector(userSelector);
+  console.log(user);
   console.log(posts);
 
   //useEffect(() => {}, [posts]);
@@ -38,7 +40,7 @@ export const WelcomeScreen = () => {
         </>
       ) : (
         <FlatList
-          style={{flex: 1}}
+          style={{flex: 1, width: '100%'}}
           data={posts}
           nestedScrollEnabled={true}
           scrollEnabled={true}

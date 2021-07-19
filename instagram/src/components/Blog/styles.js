@@ -11,6 +11,7 @@ export default styles = StyleSheet.create({
   container: {
     flex: 1,
     //justifyContent: 'space-around',
+
     alignItems: 'center',
     backgroundColor: Colors.lightGray,
     justifyContent: 'center',
@@ -106,7 +107,7 @@ export default styles = StyleSheet.create({
     paddingTop: w * 0.04,
     backgroundColor: Colors.mainWhite,
   },
-  postcardcontainer: {width: '100%', height: h * 0.65},
+  postcardcontainer: {width: '100%'},
   postcardtopcontainer: {
     height: h * 0.06,
     alignItems: 'center',
@@ -122,7 +123,7 @@ export default styles = StyleSheet.create({
   },
   descriptioncontainer: {
     flexDirection: 'row',
-    paddingHorizontal: w * 0.03,
+    marginHorizontal: w * 0.03,
     marginBottom: w * 0.02,
   },
   likecontainer: {paddingHorizontal: w * 0.03},
@@ -139,6 +140,7 @@ export default styles = StyleSheet.create({
     height: w * 0.1,
     borderWidth: 0.5,
     marginHorizontal: w * 0.03,
+    marginBottom: w * 0.01,
   },
   photosized: {
     width: w * 0.2,

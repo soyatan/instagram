@@ -22,6 +22,9 @@ import Favorite from './favorite.svg';
 import Message from './messenger.svg';
 import Left from './left-arrow.svg';
 import Right from './right-arrow.svg';
+import Close from './close.svg';
+import Selectmultiple from './selectmultiple.svg';
+import Graycamera from './graycamera.svg';
 
 export const SVGS = {
   Hide,
@@ -48,4 +51,7 @@ export const SVGS = {
   Favorite,
   Left,
   Right,
+  Close,
+  Graycamera,
+  Selectmultiple,
 };

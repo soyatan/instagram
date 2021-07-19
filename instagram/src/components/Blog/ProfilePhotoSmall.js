@@ -4,10 +4,10 @@ import styles from './styles';
 import {TouchableIcon} from '../../Assets/Svgs/touchableIcon';
 import {ImageLink} from './../../Assets/Images/index';
 
-export const ProfilePhotoSmall = () => {
+export const ProfilePhotoSmall = ({source}) => {
   return (
     <View style={styles.profilephotosmallcontainer}>
-      <Image style={styles.imagerounded} source={ImageLink['imaj']} />
+      <Image style={styles.imagerounded} source={{uri: source}} />
     </View>
   );
 };

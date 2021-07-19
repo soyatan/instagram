@@ -12,9 +12,17 @@ export const BlogHeader = () => {
         <TouchableIcon
           name={'Plus'}
           scale={1.1}
-          onPress={() => navigation.navigate('Camera')}
+          onPress={() =>
+            navigation.navigate('Post', {
+              screen: 'NewPost',
+            })
+          }
         />
-        <TouchableIcon name={'Like'} scale={1.1} />
+        <TouchableIcon
+          name={'Like'}
+          scale={1.1}
+          onPress={() => navigation.navigate('Photo')}
+        />
         <TouchableIcon name={'Message'} scale={1.2} />
       </View>
     </View>

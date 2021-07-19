@@ -17,7 +17,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import {useSelector} from 'react-redux';
 import {userSelector} from '../../redux/userReducer';
 
-const CameraScreen = ({navigation}) => {
+const CameraScreen = ({route, navigation}) => {
   const user = useSelector(userSelector);
 
   const [imageUri, setimageUri] = useState('');
@@ -26,12 +26,16 @@ const CameraScreen = ({navigation}) => {
 
   useEffect(() => {
     if (imageUri) {
-      editImage();
+      if (route.params.type === 'post') {
+        editImagePost();
+      } else if (route.params.type === 'pp') {
+        editImagePP();
+      }
       //navigation.navigate('Post', {uri: imageUri});
     }
   }, [imageUri]);
 
-  const editImage = async () => {
+  const editImagePost = async () => {
     await ImagePicker.openCropper({
       path: imageUri,
       width: 250,
@@ -44,6 +48,28 @@ const CameraScreen = ({navigation}) => {
         //uploadImage(image.path, user);
         navigation.navigate('Post', {
           screen: 'PostEdit',
+          params: {source: image.path},
+        });
+      })
+
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  const editImagePP = async () => {
+    await ImagePicker.openCropper({
+      path: imageUri,
+      width: 250,
+      height: 250,
+      cropping: true,
+      freeStyleCropEnabled: false,
+    })
+      .then(image => {
+        //requestStoragePermission(() => CameraRoll.save(image.path, 'photo'));
+        //uploadImage(image.path, user);
+        navigation.navigate('Post', {
+          screen: 'PPEdit',
           params: {source: image.path},
         });
       })

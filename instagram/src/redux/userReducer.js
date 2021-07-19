@@ -7,30 +7,20 @@ const INITIAL_STATE = {
   phoneNumber: null,
   email: null,
   loginType: null,
+  pplink: null,
 };
 
 //selector
 export const userSelector = state => state.userState;
 
-export const SET_USER = 'user/set';
 export const SET_ERROR = 'error/set';
+export const ADD_PPLINK = 'pplink/add';
 export const SET_USERANDERROR = 'error&user/set';
 
 export const SIGNOUT_REQUEST = 'signout/request';
 export const SIGNOUT = 'signout';
 
 export const UPDATE_USER_REQUEST = 'user/update';
-
-export const setUser = (userName, userId, loginType) => {
-  return {
-    type: SET_USER,
-    payload: {
-      userName,
-      userId,
-      loginType,
-    },
-  };
-};
 
 export const setError = errorMessage => {
   return {
@@ -49,6 +39,7 @@ export const setUserAndError = (
   email,
   loginType,
   errorMessage,
+  pplink,
 ) => {
   return {
     type: SET_USERANDERROR,
@@ -60,6 +51,7 @@ export const setUserAndError = (
       email,
       loginType,
       errorMessage,
+      pplink,
     },
   };
 };
@@ -73,7 +65,14 @@ export const signOutAction = () => {
     type: SIGNOUT,
   };
 };
-
+export const addPPLink = link => {
+  return {
+    type: ADD_PPLINK,
+    payload: {
+      link,
+    },
+  };
+};
 export const updateUserRequest = () => {
   return {
     type: UPDATE_USER_REQUEST,
@@ -82,16 +81,10 @@ export const updateUserRequest = () => {
 
 export const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case SET_USER:
-      return {
-        ...state,
-        loginType: action.payload.loginType,
-        userId: action.payload.userId,
-        userName: action.payload.userName,
-        isLoggedIn: true,
-      };
     case SET_ERROR:
       return {...state, errorMessage: action.payload.errorMessage};
+    case ADD_PPLINK:
+      return {...state, pplink: action.payload.link};
     case SET_USERANDERROR:
       return {...action.payload, isLoggedIn: true};
     case SIGNOUT:

@@ -8,13 +8,15 @@ import {fetchPostsRequest} from './../redux/postsReducer';
 
 const usersCollection = firestore().collection('Users');
 
-export const savePost = (link, caption, userId, navigation) => {
+export const savePost = (link, caption, userId, location, navigation) => {
   const childPath = Math.random().toString(36);
   let newPost = {};
   newPost.link = link;
   newPost.caption = caption;
   newPost.likers = [];
   newPost.favoriters = [];
+  newPost.comments = [];
+  newPost.location = location;
   newPost.postdate = Date.now();
 
   firestore()
@@ -25,6 +27,19 @@ export const savePost = (link, caption, userId, navigation) => {
     .set(newPost)
     .then(() => {
       console.log('post created');
+      navigation.navigate('Welcome');
+    });
+};
+
+export const savePP = (link, userId, navigation) => {
+  firestore()
+    .collection('Users')
+    .doc(userId)
+    .update({
+      pplink: link,
+    })
+    .then(() => {
+      console.log('profile photo link updated');
       navigation.navigate('Welcome');
     });
 };
@@ -46,6 +61,7 @@ export const createUser = (
       account.username = username;
       account.phonenumber = phonenumber;
       account.country = country;
+      account.pplink = null;
 
       firestore()
         .collection('Users')
@@ -68,6 +84,7 @@ export const createUser = (
                   newAccount.email,
                   'firebase',
                   null,
+                  newAccount.pplink,
                 ),
               );
             })
@@ -120,6 +137,7 @@ export const signInUser = (dispatch, type, userinfo, password) => {
                 newAccount.email,
                 'firebase',
                 null,
+                newAccount.pplink,
               ),
             );
           })
