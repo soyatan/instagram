@@ -21,6 +21,7 @@ const PostContainer = () => {
       <Post.Navigator screenOptions={{headerShown: false}}>
         <Post.Screen name="PostEdit" component={CreatePostScreen} />
         <Post.Screen name="NewPost" component={NewPostScreen} />
+
         <Post.Screen name="PPEdit" component={CreatePPScreen} />
       </Post.Navigator>
     </>

@@ -40,6 +40,7 @@ export function* fetchSelfPostsFromDb() {
             posterId: user.userId,
             posterName: user.userName,
             pplink: user.pplink,
+            postId: snapshotquery.id,
           });
         });
         return posts;

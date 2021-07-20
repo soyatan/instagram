@@ -24,6 +24,30 @@ export default styles = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center',
   },
+  comment: {
+    width: '100%',
+
+    //    height: h * 0.06,
+    marginVertical: w * 0.01,
+    alignItems: 'flex-start',
+    borderBottomWidth: 0.5,
+    paddingBottom: w * 0.01,
+  },
+  commenttext: {
+    textAlignVertical: 'center',
+    width: w * 0.82,
+
+    flexDirection: 'row',
+  },
+  commentscontainer: {
+    flex: 1,
+    width: w,
+    alignSelf: 'center',
+    paddingHorizontal: w * 0.03,
+    alignItems: 'center',
+    justifyContent: 'center',
+    //marginHorizontal: w * 0.01,
+  },
   secondrow: {
     alignItems: 'center',
 
@@ -113,6 +137,11 @@ export default styles = StyleSheet.create({
     color: Colors.mainBlack,
     fontSize: Fonts.Sizes.fourteen,
     fontFamily: Fonts.Families.bold,
+  },
+  normaltext: {
+    color: Colors.mainBlack,
+    fontSize: Fonts.Sizes.fourteen,
+    fontFamily: Fonts.Families.light,
   },
 
   image: {

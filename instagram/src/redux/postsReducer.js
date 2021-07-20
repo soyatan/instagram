@@ -7,7 +7,41 @@ export const FETCH_POSTS = 'posts/fetch';
 export const FETCH_POSTS_REQUEST = 'posts/fetch';
 export const SET_POSTS = 'posts/set';
 export const ADD_POST = 'post/add';
+export const ADD_POST_FAVORITE = 'post/add/favorite';
+export const ADD_POST_LIKE = 'post/add/like';
+export const ADD_POST_COMMENT = 'post/add/comment';
 
+export const addToFavorites = (posterId, postId, type) => {
+  return {
+    type: ADD_POST_FAVORITE,
+    payload: {
+      posterId,
+      postId,
+      type,
+    },
+  };
+};
+export const addToLikes = (posterId, postId, type) => {
+  return {
+    type: ADD_POST_LIKE,
+    payload: {
+      posterId,
+      postId,
+      type,
+    },
+  };
+};
+export const addCommentToPosts = (posterId, postId, posterName, comment) => {
+  return {
+    type: ADD_POST_COMMENT,
+    payload: {
+      posterId,
+      postId,
+      posterName,
+      comment,
+    },
+  };
+};
 export const fetchPosts = userId => {
   return {
     type: FETCH_POSTS,

@@ -6,9 +6,12 @@ import {TouchableIcon} from './../../Assets/Svgs/touchableIcon';
 
 import {ProfilePhotoSmaller} from './ProfilePhotoSmaller';
 
-export const CommentContainer = ({pplink}) => {
-  const [comment, setcomment] = useState('');
-
+export const CommentContainer = ({
+  pplink,
+  comment,
+  setcomment,
+  onEndEditing,
+}) => {
   return (
     <View style={styles.commentcontainer}>
       <ProfilePhotoSmaller source={pplink} />
@@ -23,6 +26,7 @@ export const CommentContainer = ({pplink}) => {
         onChangeText={setcomment}
         value={comment}
         keyboardType={'default'}
+        onEndEditing={onEndEditing}
       />
     </View>
   );

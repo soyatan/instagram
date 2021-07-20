@@ -9,10 +9,34 @@ import {Icon} from './../../Assets/Svgs/icon';
 import {useNavigation} from '@react-navigation/native';
 import BottomModal from './BottomModal';
 import {CommentContainer} from './CommentContainer';
+import MemoHeart from '../../Assets/Svgs/Heart';
+import MemoFavorite from './../../Assets/Svgs/Favorite';
+import {useDispatch} from 'react-redux';
+import {addCommentToPosts} from './../../redux/postsReducer';
 
-export const PostCard = ({item, setisModalShown, pplink}) => {
+export const PostCard = ({
+  item,
+  isModalShown,
+  setisModalShown,
+  pplink,
+  userId,
+  userName,
+}) => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const [timeTag, settimeTag] = useState('');
+  const [likeCount, setlikeCount] = useState(0);
+  const [isLiked, setisLiked] = useState(false);
+  const [isFavorite, setisFavorite] = useState(false);
+  const [comment, setcomment] = useState('');
+  const [comments, setcomments] = useState([]);
+  useEffect(() => {
+    setlikeCount(item.likers.length);
+  }, [item]);
+
+  useEffect(() => {
+    setcomments(item.comments);
+  }, [item]);
 
   useEffect(() => {
     const calculateTimeText = item => {
@@ -45,8 +69,48 @@ export const PostCard = ({item, setisModalShown, pplink}) => {
       calculateTimeText(item);
     }
   }, [item]);
+  useEffect(() => {
+    const likers = [...item.likers];
+    if (likers.find(item => item === userId)) {
+      setisLiked('#f44336');
+    } else {
+      setisLiked(null);
+    }
+  }, [item]);
+  useEffect(() => {
+    const favoriters = [...item.favoriters];
+    if (favoriters.find(item => item === userId)) {
+      setisFavorite('#f44336');
+    } else {
+      setisFavorite(null);
+    }
+  }, [item]);
+
   const [fullDescriptionShown, setfullDescriptionShown] = useState(false);
-  const addComment = () => {};
+  const navigateToComments = () => {
+    navigation.navigate('Comments', {
+      comments: comments,
+      pplink: pplink,
+      postId: item.postId,
+      posterId: userId,
+      posterName: userName,
+    });
+  };
+  const addComment = () => {
+    dispatch(
+      addCommentToPosts(item.posterId, item.postId, item.posterName, comment),
+    );
+    setcomment('');
+    //navigateToComments();
+  };
+  const switchModalShown = () => {
+    if (isModalShown) {
+      setisModalShown(false);
+    } else {
+      setisModalShown(item.posterId);
+    }
+  };
+
   return (
     <>
       <View style={styles.postcardcontainer}>
@@ -60,7 +124,7 @@ export const PostCard = ({item, setisModalShown, pplink}) => {
             <TouchableIcon
               name={'Three_Dots'}
               scale={1}
-              onPress={() => setisModalShown(item.posterId)}
+              onPress={() => switchModalShown()}
             />
           </View>
         </View>
@@ -75,7 +139,16 @@ export const PostCard = ({item, setisModalShown, pplink}) => {
               justifyContent: 'space-between',
               alignItems: 'center',
             }}>
-            <TouchableIcon name={'Like'} scale={1.3} />
+            <MemoHeart
+              scale={1.3}
+              postId={item.postId}
+              posterId={item.posterId}
+              isLiked={isLiked}
+              setisLiked={setisLiked}
+              setlikeCount={setlikeCount}
+              likeCount={likeCount}
+            />
+
             <TouchableIcon name={'Comment'} scale={1.3} />
             <TouchableIcon name={'Message'} scale={1.3} />
           </View>
@@ -92,16 +165,22 @@ export const PostCard = ({item, setisModalShown, pplink}) => {
 
               alignItems: 'flex-end',
             }}>
-            <TouchableIcon name={'Favorite'} scale={1.3} />
+            <MemoFavorite
+              scale={1.3}
+              postId={item.postId}
+              posterId={item.posterId}
+              isFavorite={isFavorite}
+              setisFavorite={setisFavorite}
+            />
           </View>
         </View>
-        {item.likers.length === 1 ? (
+        {likeCount === 1 ? (
           <View style={styles.likecontainer}>
             <Text>1 Like</Text>
           </View>
-        ) : item.likers.length > 1 ? (
+        ) : likeCount > 1 ? (
           <View style={styles.likecontainer}>
-            <Text> {item.likers.length} Likes </Text>
+            <Text> {likeCount} Likes </Text>
           </View>
         ) : null}
 
@@ -127,18 +206,23 @@ export const PostCard = ({item, setisModalShown, pplink}) => {
         </View>
         {item.comments.length === 0 ? null : item.comments.length === 1 ? (
           <Text
-            onPress={() => setfullDescriptionShown(true)}
+            onPress={() => navigateToComments()}
             style={styles.shadytexttoleft}>
             View 1 comment
           </Text>
         ) : item.comments.length > 1 ? (
           <Text
-            onPress={() => setfullDescriptionShown(true)}
+            onPress={() => navigateToComments()}
             style={styles.shadytexttoleft}>
             {`View all ${item.comments.length} comments`}
           </Text>
         ) : null}
-        <CommentContainer pplink={pplink} onEndEditing={() => addComment()} />
+        <CommentContainer
+          comment={comment}
+          setcomment={setcomment}
+          pplink={pplink}
+          onEndEditing={() => addComment()}
+        />
 
         <Text style={styles.datetext}>{timeTag}</Text>
       </View>

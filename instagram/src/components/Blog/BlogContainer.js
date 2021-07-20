@@ -16,6 +16,7 @@ import PostContainer from '../Post/PostContainer';
 
 import AddPhotoScreenPP from '../Auth/AddPhotoScreenPP';
 import BottomModal from './BottomModal';
+import CommentsScreen from './../Post/CommentsModal';
 
 const Blog = createStackNavigator();
 
@@ -27,6 +28,7 @@ const BlogContainer = () => {
       <Blog.Navigator screenOptions={{headerShown: false}}>
         <Blog.Screen name="Welcome" component={WelcomeScreen} />
         <Blog.Screen name="Camera" component={CameraScreen} />
+        <Blog.Screen name="Comments" component={CommentsScreen} />
         <Blog.Screen name="Photo" component={AddPhotoScreenPP} />
       </Blog.Navigator>
       <BlogFooter />

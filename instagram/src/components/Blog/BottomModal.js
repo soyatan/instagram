@@ -4,15 +4,18 @@ import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 
 const BottomModal = ({isModalShown, setisModalShown}) => {
   //const [shown, setshown] = useState(false);
-  console.log(isModalShown);
+
   useEffect(() => {
     if (isModalShown) {
       handlePresentModalPress();
+    } else {
+      bottomSheetModalRef.current?.close();
     }
   }, [isModalShown]);
 
   // ref
   const bottomSheetModalRef = useRef(BottomSheetModal);
+
   // variables
   const snapPoints = useMemo(() => ['25%', '35%'], []);
 
@@ -21,7 +24,7 @@ const BottomModal = ({isModalShown, setisModalShown}) => {
     bottomSheetModalRef.current?.present();
   }, []);
   const handleSheetChanges = useCallback((index: number) => {
-    console.log('handleSheetChanges', index);
+    //console.log('handleSheetChanges', index);
     if (index === -1) {
       setisModalShown(false);
     }

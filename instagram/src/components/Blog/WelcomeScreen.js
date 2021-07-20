@@ -10,17 +10,18 @@ import {UserCard} from './UserCard';
 import {fetchPostsRequest, postsSelector} from './../../redux/postsReducer';
 import BottomModal from './BottomModal';
 
-export const WelcomeScreen = () => {
+export const WelcomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const [isModalShown, setisModalShown] = useState(false);
   const posts = useSelector(postsSelector);
   const user = useSelector(userSelector);
-
-  //useEffect(() => {}, [posts]);
-
   useEffect(() => {
-    dispatch(fetchPostsRequest());
-  }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+      dispatch(fetchPostsRequest());
+    });
+    return unsubscribe;
+  }, [navigation]);
+
   const [isNew, setisNew] = useState(false);
   const [initializing, setinitializing] = useState(true);
 
@@ -49,7 +50,10 @@ export const WelcomeScreen = () => {
                 <PostCard
                   item={item}
                   setisModalShown={setisModalShown}
+                  isModalShown={isModalShown}
                   pplink={user.pplink}
+                  userId={user.userId}
+                  userName={user.userName}
                 />
               );
             }}
