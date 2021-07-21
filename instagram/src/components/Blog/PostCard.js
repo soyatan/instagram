@@ -30,6 +30,7 @@ export const PostCard = ({
   const [isFavorite, setisFavorite] = useState(false);
   const [comment, setcomment] = useState('');
   const [comments, setcomments] = useState([]);
+
   useEffect(() => {
     setlikeCount(item.likers.length);
   }, [item]);
@@ -71,6 +72,7 @@ export const PostCard = ({
   }, [item]);
   useEffect(() => {
     const likers = [...item.likers];
+
     if (likers.find(item => item === userId)) {
       setisLiked('#f44336');
     } else {
@@ -92,8 +94,8 @@ export const PostCard = ({
       comments: comments,
       pplink: pplink,
       postId: item.postId,
-      posterId: userId,
-      posterName: userName,
+      posterId: item.posterId,
+      userName: userName,
     });
   };
   const addComment = () => {
@@ -101,7 +103,7 @@ export const PostCard = ({
       addCommentToPosts(item.posterId, item.postId, item.posterName, comment),
     );
     setcomment('');
-    //navigateToComments();
+    navigateToComments();
   };
   const switchModalShown = () => {
     if (isModalShown) {

@@ -16,6 +16,14 @@ export default styles = StyleSheet.create({
     backgroundColor: Colors.lightGray,
     justifyContent: 'center',
   },
+  searchscreencontainer: {
+    flex: 1,
+    //justifyContent: 'space-around',
+
+    backgroundColor: Colors.lightGray,
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
   blogheader: {
     width: '100%',
     height: h * 0.07,
@@ -117,6 +125,18 @@ export default styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: w * 0.04,
     backgroundColor: Colors.mainWhite,
+  },
+  usercardcontainersmall: {
+    marginTop: h * 0.03,
+    paddingHorizontal: w * 0.1,
+    height: h * 0.2,
+    borderWidth: 1,
+    borderRadius: w * 0.05,
+    alignItems: 'center',
+    paddingTop: w * 0.04,
+    backgroundColor: Colors.mainWhite,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   postcardcontainer: {width: '100%'},
   postcardtopcontainer: {
@@ -221,5 +241,11 @@ export default styles = StyleSheet.create({
     height: '100%',
 
     borderRadius: w * 0.05,
+  },
+  imageroundedmedium: {
+    width: '100%',
+    height: '100%',
+
+    borderRadius: w * 0.5,
   },
 });

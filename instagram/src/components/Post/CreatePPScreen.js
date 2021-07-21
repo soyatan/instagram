@@ -18,7 +18,7 @@ import {ConfirmButton} from '../Camera/ConfirmButton';
 import {CameraGrid} from '../Camera/CameraGrid';
 import ImagePicker from 'react-native-image-crop-picker';
 
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {userSelector} from '../../redux/userReducer';
 import styles from './styles';
 import {TouchableIcon} from '../../Assets/Svgs/touchableIcon';
@@ -28,6 +28,7 @@ import {uploadImage, uploadPP} from '../../API/storageFunctions';
 import {PreviewScreen} from './../Camera/PreviewScreen';
 
 const CreatePPScreen = ({route, navigation}) => {
+  const dispatch = useDispatch();
   const user = useSelector(userSelector);
   const [location, setlocation] = useState('');
   const [image, setimage] = useState(null);
@@ -40,7 +41,7 @@ const CreatePPScreen = ({route, navigation}) => {
     if (image) {
       try {
         requestStoragePermission(() => CameraRoll.save(image, 'photo'));
-        uploadPP(image, user, navigation);
+        uploadPP(image, user, navigation, dispatch);
       } catch (error) {
         console.log(error);
       }

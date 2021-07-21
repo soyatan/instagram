@@ -25,6 +25,8 @@ export const addUserToDb = (user, dispatch) => {
   account.phonenumber = null;
   account.country = 'United States';
   account.pplink = null;
+  account.followers = [];
+  account.following = [];
 
   firestore()
     .collection('Users')
@@ -36,7 +38,6 @@ export const addUserToDb = (user, dispatch) => {
         .doc(user.id)
         .get()
         .then(function (snapshot) {
-          console.log(snapshot.data());
           let newAccount = snapshot.data();
 
           dispatch(
@@ -49,6 +50,8 @@ export const addUserToDb = (user, dispatch) => {
               'facebook',
               null,
               newAccount.pplink,
+              newAccount.followers,
+              newAccount.following,
             ),
           );
         })
@@ -79,6 +82,8 @@ export const checkUserInDb = (user, dispatch) => {
               'facebook',
               null,
               newAccount.pplink,
+              newAccount.followers,
+              newAccount.following,
             ),
           );
         } else {

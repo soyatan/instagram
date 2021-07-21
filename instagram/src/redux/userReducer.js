@@ -8,6 +8,8 @@ const INITIAL_STATE = {
   email: null,
   loginType: null,
   pplink: null,
+  followers: [],
+  following: [],
 };
 
 //selector
@@ -15,6 +17,7 @@ export const userSelector = state => state.userState;
 
 export const SET_ERROR = 'error/set';
 export const ADD_PPLINK = 'pplink/add';
+export const FOLLOW_USER_REQUEST = 'user/follow';
 export const SET_USERANDERROR = 'error&user/set';
 
 export const SIGNOUT_REQUEST = 'signout/request';
@@ -40,6 +43,8 @@ export const setUserAndError = (
   loginType,
   errorMessage,
   pplink,
+  followers,
+  following,
 ) => {
   return {
     type: SET_USERANDERROR,
@@ -52,9 +57,22 @@ export const setUserAndError = (
       loginType,
       errorMessage,
       pplink,
+      followers,
+      following,
     },
   };
 };
+
+export const followUserRequest = (selfId, userId) => {
+  return {
+    type: FOLLOW_USER_REQUEST,
+    payload: {
+      selfId,
+      userId,
+    },
+  };
+};
+
 export const signOutRequest = () => {
   return {
     type: SIGNOUT_REQUEST,
@@ -87,6 +105,7 @@ export const userReducer = (state = INITIAL_STATE, action) => {
       return {...state, pplink: action.payload.link};
     case SET_USERANDERROR:
       return {...action.payload, isLoggedIn: true};
+
     case SIGNOUT:
       return {
         errorMessage: null,

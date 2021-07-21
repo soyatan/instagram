@@ -30,15 +30,28 @@ import {FlatList} from 'react-native-gesture-handler';
 import {ProfilePhotoSmaller} from './../Blog/ProfilePhotoSmaller';
 import {CommentContainer} from './../Blog/CommentContainer';
 import {addCommentToPosts} from './../../redux/postsReducer';
+import {fetchCommentsFromDb} from '../../redux/saga/fetchCommentsSaga';
+import {commentsSelector, fetchComments} from '../../redux/commentsReducer';
 
 const CommentsScreen = ({route, navigation}) => {
   const [comment, setcomment] = useState('');
-  const {comments, pplink, postId, posterId, userName} = route.params;
-  //const [timeTag, settimeTag] = useState('');
+  const {pplink, postId, posterId, userName} = route.params;
+  console.log(pplink, postId, posterId, userName);
+  const comments = useSelector(commentsSelector);
+
   const dispatch = useDispatch();
   const addComment = () => {
     dispatch(addCommentToPosts(posterId, postId, userName, comment));
+    dispatch(fetchComments(posterId, postId));
+    setcomment('');
   };
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      dispatch(fetchComments(posterId, postId));
+    });
+    return unsubscribe;
+  }, [navigation]);
+
   const calculateTimeText = item => {
     const timePassed = (-item + Date.now()) / 1000;
 

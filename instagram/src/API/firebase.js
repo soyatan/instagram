@@ -1,6 +1,11 @@
 import auth, {firebase} from '@react-native-firebase/auth';
 
-import {setError, setUserAndError, signOutAction} from '../redux/userReducer';
+import {
+  addPPLink,
+  setError,
+  setUserAndError,
+  signOutAction,
+} from '../redux/userReducer';
 import database from '@react-native-firebase/database';
 import firestore from '@react-native-firebase/firestore';
 import {FETCH_POSTS_REQUEST} from '../redux/postsReducer';
@@ -31,7 +36,7 @@ export const savePost = (link, caption, userId, location, navigation) => {
     });
 };
 
-export const savePP = (link, userId, navigation) => {
+export const savePP = (link, userId, navigation, dispatch) => {
   firestore()
     .collection('Users')
     .doc(userId)
@@ -39,6 +44,7 @@ export const savePP = (link, userId, navigation) => {
       pplink: link,
     })
     .then(() => {
+      dispatch(addPPLink(link));
       console.log('profile photo link updated');
       navigation.navigate('Welcome');
     });
@@ -62,6 +68,8 @@ export const createUser = (
       account.phonenumber = phonenumber;
       account.country = country;
       account.pplink = null;
+      account.followers = [];
+      account.following = [];
 
       firestore()
         .collection('Users')
@@ -85,6 +93,8 @@ export const createUser = (
                   'firebase',
                   null,
                   newAccount.pplink,
+                  newAccount.followers,
+                  newAccount.following,
                 ),
               );
             })
@@ -138,6 +148,8 @@ export const signInUser = (dispatch, type, userinfo, password) => {
                 'firebase',
                 null,
                 newAccount.pplink,
+                newAccount.followers,
+                newAccount.following,
               ),
             );
           })

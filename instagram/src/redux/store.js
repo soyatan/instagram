@@ -8,11 +8,15 @@ import {persistStore, persistReducer} from 'redux-persist';
 import {userReducer} from './userReducer';
 import {storyReducer} from './storyReducer';
 import {postsReducer} from './postsReducer';
+import {commentsReducer} from './commentsReducer';
+import {popularUserReducer} from './popularUserReducer';
 
 const combinedReducer = combineReducers({
   userState: userReducer,
   storyState: storyReducer,
   postsState: postsReducer,
+  commentsState: commentsReducer,
+  popularUserState: popularUserReducer,
 });
 
 let persistedReducer = combinedReducer;

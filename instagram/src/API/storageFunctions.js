@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 
 import storage from '@react-native-firebase/storage';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {userSelector} from '../redux/userReducer';
 import {savePost, savePP} from './firebase';
 
@@ -40,14 +40,12 @@ export const uploadImage = async (
     });
   };
 
-  const taskError = snapshot => {
-    console.log(snapshot);
-  };
+  const taskError = snapshot => {};
   task.on('state_changed', taskProgress, taskError, taskCompleted);
   // set progress state
 };
 
-export const uploadPP = async (image, user, navigation) => {
+export const uploadPP = async (image, user, navigation, dispatch) => {
   const childPath = user.userId;
 
   const uploadUri =
@@ -64,13 +62,11 @@ export const uploadPP = async (image, user, navigation) => {
 
   const taskCompleted = snapshot => {
     snapshot.ref.getDownloadURL().then(snapshot => {
-      savePP(snapshot, user.userId, navigation);
+      savePP(snapshot, user.userId, navigation, dispatch);
     });
   };
 
-  const taskError = snapshot => {
-    console.log(snapshot);
-  };
+  const taskError = snapshot => {};
   task.on('state_changed', taskProgress, taskError, taskCompleted);
   // set progress state
 };

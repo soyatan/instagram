@@ -6,7 +6,7 @@ export const postsSelector = state => state.postsState;
 export const FETCH_POSTS = 'posts/fetch';
 export const FETCH_POSTS_REQUEST = 'posts/fetch';
 export const SET_POSTS = 'posts/set';
-export const ADD_POST = 'post/add';
+export const ADD_POSTS = 'post/add';
 export const ADD_POST_FAVORITE = 'post/add/favorite';
 export const ADD_POST_LIKE = 'post/add/like';
 export const ADD_POST_COMMENT = 'post/add/comment';
@@ -56,7 +56,6 @@ export const fetchPostsRequest = () => {
   };
 };
 export const setPosts = posts => {
-  console.log(posts);
   return {
     type: SET_POSTS,
     payload: {
@@ -65,11 +64,11 @@ export const setPosts = posts => {
   };
 };
 
-export const addPost = post => {
+export const addPosts = posts => {
   return {
     type: ADD_POSTS,
     payload: {
-      post,
+      posts,
     },
   };
 };
@@ -78,6 +77,12 @@ export const postsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case SET_POSTS:
       return action.payload.posts;
+    case ADD_POSTS:
+      const postsToAdd = action.payload.posts;
+      const newSortedPostsList = postsToAdd.sort((a, b) =>
+        a.postdate > b.postdate ? -1 : 1,
+      );
+      return newSortedPostsList;
 
     default:
       return state;
