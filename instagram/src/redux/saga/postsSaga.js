@@ -58,7 +58,6 @@ export function* getPostsFromDb(id) {
   }
 }
 export function* fetchUser(id) {
-  console.log('step 3', id);
   const newAccount = yield firestore()
     .collection('Users')
     .doc(id)
@@ -92,7 +91,6 @@ export function* mergeLists(lists) {
 export function* setFetchList() {
   const user = yield select(userSelector);
   const usersToFetch = yield [...user.following, user.userId];
-  console.log('step 5', usersToFetch);
 
   const finalList = yield all(
     usersToFetch.map(pplid => call(getPostsFromDb, pplid)),
@@ -102,11 +100,8 @@ export function* setFetchList() {
 }
 
 export function* createListToFetchFromDb() {
-  console.log('Step1');
   const user = yield select(userSelector);
-  console.log('Step2', user);
   yield call(fetchUser, user.userId);
-  console.log('step4');
   yield call(setFetchList, user.userId);
 }
 

@@ -35,22 +35,16 @@ export const setPopularUsers = (user, userid, links) => {
   };
 };
 
-export const addPopularUsers = user => {
-  return {
-    type: ADD_POPULAR_USERS,
-    payload: {
-      user,
-    },
-  };
-};
 export const popularUserReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case SET_POPULAR_USERS:
       const newPop = {...action.payload.user, postlinks: action.payload.links};
-      return [...state, newPop];
+      if (state.some(item => item.uid === newPop.uid)) {
+        return [...state];
+      } else {
+        return [...state, newPop];
+      }
 
-    case ADD_POPULAR_USERS:
-      return [...state, action.payload.user];
     case ADD_POPULAR_USER_PHOTOS:
       const photolinks = action.payload.links;
       const newState = state.map(user => {

@@ -22,7 +22,7 @@ export const UserCardSmall = ({user, switchFollowing}) => {
       }
     };
     checkIsFollowing(self.userId);
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     const checkIsSelf = selfId => {

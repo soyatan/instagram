@@ -23,9 +23,9 @@ export const WelcomeScreen = ({navigation}) => {
   const posts = useSelector(postsSelector);
   const user = useSelector(userSelector);
   const popularusers = useSelector(popularUserSelector);
+
   const switchFollowing = userId => {
     dispatch(followUserRequest(user.userId, userId));
-    setisNew(false);
   };
 
   useEffect(() => {
@@ -36,8 +36,12 @@ export const WelcomeScreen = ({navigation}) => {
   }, [navigation]);
 
   useEffect(() => {
-    if (posts.length < 1) {
-      setisNew(true);
+    dispatch(fetchPostsRequest());
+  }, [isNew]);
+
+  useEffect(() => {
+    if (posts.length > 1) {
+      setinitializing(false);
     }
   }, [posts]);
 
@@ -49,8 +53,7 @@ export const WelcomeScreen = ({navigation}) => {
     <>
       <View style={styles.container}>
         <StoryContainer />
-
-        {!isNew && user && popularusers.length > 0 ? (
+        {initializing && user && popularusers.length > 0 ? (
           <>
             <Text style={styles.bigblacktext}>Welcome to Instagram</Text>
             <View style={styles.longtextcontainer}>

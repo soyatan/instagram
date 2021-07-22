@@ -23,8 +23,15 @@ export const SearchScreen = ({navigation}) => {
 
   const switchFollowing = userId => {
     dispatch(followUserRequest(user.userId, userId));
-    setisNew(false);
   };
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      dispatch(fetchPopularUsersRequest());
+      dispatch(fetchPostsRequest());
+    });
+    return unsubscribe;
+  }, [navigation]);
+
   return (
     <>
       <Text style={[styles.bigblacktext, {alignSelf: 'center'}]}>

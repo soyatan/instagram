@@ -45,6 +45,7 @@ export const savePP = (link, userId, navigation, dispatch) => {
     })
     .then(() => {
       dispatch(addPPLink(link));
+      dispatch(fetchPostsRequest());
       console.log('profile photo link updated');
       navigation.navigate('Welcome');
     });

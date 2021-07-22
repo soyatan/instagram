@@ -24,7 +24,9 @@ const FinalizeScreen = ({route, navigation}) => {
   const registerUser = (country, username, email, password, phonenumber) => {
     createUser(dispatch, country, username, email, password, phonenumber);
   };
-
+  useEffect(() => {
+    validatePhone();
+  }, [phone]);
   const addPhoneNumber = () => {
     if (isValidPhone) {
       setisPhoneAdding(false);

@@ -36,7 +36,6 @@ import {commentsSelector, fetchComments} from '../../redux/commentsReducer';
 const CommentsScreen = ({route, navigation}) => {
   const [comment, setcomment] = useState('');
   const {pplink, postId, posterId, userName} = route.params;
-  console.log(pplink, postId, posterId, userName);
   const comments = useSelector(commentsSelector);
 
   const dispatch = useDispatch();

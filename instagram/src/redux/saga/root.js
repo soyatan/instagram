@@ -6,6 +6,7 @@ import likeSaga from './likesSaga';
 import postsSaga from './postsSaga';
 import fetchPopularUserSaga from './fetchPopularUserSaga';
 import followerSaga from './followerSaga';
+import countSelfPostsSaga from './countSelfPostsSaga';
 
 export default function* root() {
   yield all([
@@ -16,5 +17,6 @@ export default function* root() {
     ...fetchCommentsSaga,
     ...fetchPopularUserSaga,
     ...followerSaga,
+    ...countSelfPostsSaga,
   ]);
 }

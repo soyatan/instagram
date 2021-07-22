@@ -26,7 +26,6 @@ import {
   FETCH_POPULAR_USERS,
   setPopularUsers,
 } from '../popularUserReducer';
-import {addPopularUsers} from './../popularUserReducer';
 
 export function* addFavoritePostPhotos(user, userid, postlinks) {
   yield put(setPopularUsers(user, userid, postlinks));
@@ -60,11 +59,10 @@ export function* fetchUserCard(userid) {
     .then(function (snapshot) {
       return snapshot.data();
     });
-  //yield put(addPopularUsers(user));
   yield call(getFavoritePostPhotos, user, user.uid);
 }
 
-export function* fetchPopUsers({payload}) {
+export function* fetchPopUsers() {
   try {
     let userIds = [];
     const users = yield firestore()

@@ -10,6 +10,7 @@ import {storyReducer} from './storyReducer';
 import {postsReducer} from './postsReducer';
 import {commentsReducer} from './commentsReducer';
 import {popularUserReducer} from './popularUserReducer';
+import {selfPostsReducer} from './selfPostsReducer';
 
 const combinedReducer = combineReducers({
   userState: userReducer,
@@ -17,6 +18,7 @@ const combinedReducer = combineReducers({
   postsState: postsReducer,
   commentsState: commentsReducer,
   popularUserState: popularUserReducer,
+  selfPostsState: selfPostsReducer,
 });
 
 let persistedReducer = combinedReducer;

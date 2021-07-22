@@ -26,7 +26,7 @@ import {
   FETCH_POPULAR_USERS,
   setPopularUsers,
 } from '../popularUserReducer';
-import {addPopularUsers} from '../popularUserReducer';
+import {fetchPopularUsersRequest} from './../popularUserReducer';
 
 export function* followTheUser({payload}) {
   const {selfId, userId} = payload;
@@ -45,6 +45,8 @@ export function* followTheUser({payload}) {
             followers: firestore.FieldValue.arrayUnion(selfId),
           }),
       );
+    yield put(fetchPostsRequest());
+    yield put(fetchPopularUsersRequest());
   } catch (error) {
     console.log(error);
   }

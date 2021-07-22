@@ -111,10 +111,14 @@ export const userReducer = (state = INITIAL_STATE, action) => {
         errorMessage: null,
         isLoggedIn: false,
         userId: null,
-        loginType: null,
+        country: null,
         userName: null,
-        popCoin: 0,
-        ownedBoards: [],
+        phoneNumber: null,
+        email: null,
+        loginType: null,
+        pplink: null,
+        followers: [],
+        following: [],
       };
 
     default:

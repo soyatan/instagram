@@ -16,6 +16,29 @@ export default styles = StyleSheet.create({
     backgroundColor: Colors.lightGray,
     justifyContent: 'center',
   },
+  userprofilecontainer: {
+    flex: 1,
+    //justifyContent: 'space-around',
+    justifyContent: 'space-around',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    backgroundColor: Colors.lightGray,
+    paddingHorizontal: w * 0.025,
+    //flexDirection: 'row',
+  },
+  userprofiletopcontainer: {
+    //justifyContent: 'space-around',
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+  },
+  userprofrightcontainer: {
+    height: w * 0.2,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+
   searchscreencontainer: {
     flex: 1,
     //justifyContent: 'space-around',
@@ -23,6 +46,7 @@ export default styles = StyleSheet.create({
     backgroundColor: Colors.lightGray,
     justifyContent: 'center',
     flexDirection: 'row',
+    paddingHorizontal: w * 0.02,
   },
   blogheader: {
     width: '100%',
@@ -116,6 +140,12 @@ export default styles = StyleSheet.create({
     marginBottom: h * 0.02,
     marginTop: h * 0.05,
   },
+  bigblacktextnomargin: {
+    fontSize: Fonts.Sizes.eighteen,
+    color: Colors.mainBlack,
+    marginBottom: h * 0.02,
+    paddingLeft: w * 0.02,
+  },
   usercardcontainer: {
     marginTop: h * 0.03,
     width: '75%',
@@ -181,6 +211,12 @@ export default styles = StyleSheet.create({
     marginHorizontal: w * 0.03,
     marginBottom: w * 0.01,
   },
+  profilephotoheader: {
+    borderRadius: w,
+    width: w * 0.07,
+    height: w * 0.07,
+    borderWidth: 3,
+  },
   photosized: {
     width: w * 0.2,
     height: w * 0.2,
@@ -225,6 +261,13 @@ export default styles = StyleSheet.create({
     color: Colors.mainBlack,
     fontSize: Fonts.Sizes.fourteen,
     fontFamily: Fonts.Families.bold,
+  },
+  blacktextprofile: {
+    color: Colors.mainBlack,
+    fontSize: Fonts.Sizes.fourteen,
+    fontFamily: Fonts.Families.bold,
+    textAlign: 'center',
+    paddingVertical: w * 0.01,
   },
   commenttextheader: {color: Colors.mainBlack},
   commenttext: {
