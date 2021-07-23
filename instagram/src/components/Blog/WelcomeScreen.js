@@ -16,7 +16,7 @@ import {
 
 export const WelcomeScreen = ({navigation}) => {
   const [isNew, setisNew] = useState(true);
-  const [initializing, setinitializing] = useState(true);
+  const [initializing, setinitializing] = useState(false);
 
   const dispatch = useDispatch();
   const [isModalShown, setisModalShown] = useState(false);
@@ -40,7 +40,9 @@ export const WelcomeScreen = ({navigation}) => {
   }, [isNew]);
 
   useEffect(() => {
-    if (posts.length > 1) {
+    if (posts.length < 1) {
+      setinitializing('welcome');
+    } else {
       setinitializing(false);
     }
   }, [posts]);
@@ -53,7 +55,7 @@ export const WelcomeScreen = ({navigation}) => {
     <>
       <View style={styles.container}>
         <StoryContainer />
-        {initializing && user && popularusers.length > 0 ? (
+        {initializing === 'welcome' && popularusers.length > 1 ? (
           <>
             <Text style={styles.bigblacktext}>Welcome to Instagram</Text>
             <View style={styles.longtextcontainer}>
@@ -66,12 +68,13 @@ export const WelcomeScreen = ({navigation}) => {
               switchFollowing={switchFollowing}
             />
           </>
-        ) : (
+        ) : user.pplink ? (
           <FlatList
             style={{flex: 1, width: '100%'}}
             data={posts}
             nestedScrollEnabled={true}
             scrollEnabled={true}
+            initialNumToRender={3}
             renderItem={({item}) => {
               return (
                 <PostCard
@@ -86,7 +89,7 @@ export const WelcomeScreen = ({navigation}) => {
             }}
             keyExtractor={(item, index) => index.toString()}
           />
-        )}
+        ) : null}
       </View>
       <BottomModal
         isModalShown={isModalShown}

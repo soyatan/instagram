@@ -8,8 +8,15 @@ export const TouchableIcon = ({name, scale, onPress}) => {
   const VecGr = SVGS[name];
   const size = scale * width * 0.05;
   return (
-    <TouchableOpacity style={{width: size, height: size}} onPress={onPress}>
-      <VecGr width="100%" height="100%" fill={'black'} />
+    <TouchableOpacity
+      style={{
+        width: size * 2,
+        height: '100%',
+
+        alignItems: 'center',
+      }}
+      onPress={onPress}>
+      <VecGr width="50%" height="100%" fill={'black'} />
     </TouchableOpacity>
   );
 };

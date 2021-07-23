@@ -18,7 +18,6 @@ export const UserCardSmall = ({user, switchFollowing}) => {
       if (user.followers.find(item => item === selfId)) {
         setisFollowing(true);
       } else {
-        console.log('it is not here');
       }
     };
     checkIsFollowing(self.userId);

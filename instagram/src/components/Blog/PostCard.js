@@ -151,7 +151,11 @@ export const PostCard = ({
               likeCount={likeCount}
             />
 
-            <TouchableIcon name={'Comment'} scale={1.3} />
+            <TouchableIcon
+              name={'Comment'}
+              scale={1.3}
+              onPress={() => navigateToComments()}
+            />
             <TouchableIcon name={'Message'} scale={1.3} />
           </View>
           <View

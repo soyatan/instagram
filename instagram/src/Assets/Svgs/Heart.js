@@ -24,7 +24,9 @@ function Heart(props) {
     }
   };
   return (
-    <TouchableOpacity onPress={() => switchPressing()}>
+    <TouchableOpacity
+      style={{marginRight: 10}}
+      onPress={() => switchPressing()}>
       <Svg
         height={w * 0.05 * props.scale}
         viewBox="0 0 24 24"

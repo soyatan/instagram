@@ -22,7 +22,6 @@ import {addPosts, FETCH_POSTS_REQUEST, setPosts} from '../postsReducer';
 import {countSelfPosts, COUNT_POSTS_REQUEST} from './../selfPostsReducer';
 
 export function* countUserPosts(payload) {
-  console.log(payload, 'payloaded');
   try {
     let posts = [];
     const postList = yield firestore()

@@ -36,7 +36,6 @@ export function* fetchCommentsFromDb({payload}) {
       .then(function (snaphot) {
         return snaphot.data();
       });
-    console.log(post);
     const comments = yield post.comments;
     yield put(setComments(comments));
   } catch (error) {

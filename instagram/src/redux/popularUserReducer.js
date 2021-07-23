@@ -40,7 +40,14 @@ export const popularUserReducer = (state = INITIAL_STATE, action) => {
     case SET_POPULAR_USERS:
       const newPop = {...action.payload.user, postlinks: action.payload.links};
       if (state.some(item => item.uid === newPop.uid)) {
-        return [...state];
+        const newList = state.map(item => {
+          if (item.uid === newPop.uid) {
+            return newPop;
+          } else {
+            return item;
+          }
+        });
+        return newList;
       } else {
         return [...state, newPop];
       }
