@@ -30,6 +30,7 @@ import {PreviewScreen} from './../Camera/PreviewScreen';
 import SelectMultipleButton from './SelectMultipleButton';
 import {TouchableIcon} from './../../Assets/Svgs/touchableIcon';
 import AuthButton from './../Auth/AuthButton';
+import {Icon} from './../../Assets/Svgs/icon';
 
 const NewPostScreen = ({route, navigation}) => {
   const user = useSelector(userSelector);
@@ -81,13 +82,14 @@ const NewPostScreen = ({route, navigation}) => {
       </View>
 
       <View style={styles.galleryrow}>
+        <Icon name={'Camera'} scale={4} />
         <AuthButton
           onPress={() => chooseFromGallery()}
           label={'Choose from Gallery'}
           pressable={true}></AuthButton>
         <AuthButton
           onPress={() => navigation.navigate('Camera', {type: 'post'})}
-          label={'Add a Photo'}
+          label={'Add a Photo/Video'}
           pressable={true}></AuthButton>
       </View>
     </View>

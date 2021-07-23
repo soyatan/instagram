@@ -41,6 +41,7 @@ export function* getPostsFromDb(id) {
       .get()
       .then(function (snapshot) {
         snapshot.forEach(snapshotquery => {
+          //console.log(snapshotquery.data());
           posts.push({
             ...snapshotquery.data(),
             posterId: user.uid,

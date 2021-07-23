@@ -75,7 +75,7 @@ export default styles = StyleSheet.create({
     paddingRight: w * 0.04,
   },
   postimagecontainer: {
-    width: '100%',
+    width: w,
     height: w,
   },
   longtextcontainer: {

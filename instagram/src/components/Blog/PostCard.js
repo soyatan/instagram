@@ -13,6 +13,7 @@ import MemoHeart from '../../Assets/Svgs/Heart';
 import MemoFavorite from './../../Assets/Svgs/Favorite';
 import {useDispatch} from 'react-redux';
 import {addCommentToPosts} from './../../redux/postsReducer';
+import {VideoPlayer} from '../Camera/VideoPlayer';
 
 export const PostCard = ({
   item,
@@ -38,7 +39,6 @@ export const PostCard = ({
   useEffect(() => {
     setcomments(item.comments);
   }, [item]);
-
   useEffect(() => {
     const calculateTimeText = item => {
       const timePassed = (-item.postdate + Date.now()) / 1000;
@@ -131,7 +131,11 @@ export const PostCard = ({
           </View>
         </View>
         <View style={styles.postimagecontainer}>
-          <Image style={styles.image} source={{uri: item.link}} />
+          {item.type === 'video' ? (
+            <VideoPlayer source={item.link} />
+          ) : (
+            <Image style={styles.image} source={{uri: item.link}} />
+          )}
         </View>
         <View style={styles.postcardbottomcontainer}>
           <View

@@ -18,13 +18,15 @@ import styles from './styles';
 import {TouchableIcon} from './../../Assets/Svgs/touchableIcon';
 import {ProfilePhotoSmall} from './../Blog/ProfilePhotoSmall';
 import {PhotoPreview} from '../Camera/PhotoPreview';
-import {uploadImage} from './../../API/storageFunctions';
+import {uploadImage, uploadVideo} from './../../API/storageFunctions';
 
 const CreatePostScreen = ({route, navigation}) => {
   const user = useSelector(userSelector);
   const [location, setlocation] = useState('');
   const [image, setimage] = useState(null);
   const [caption, setcaption] = useState('');
+
+  const [isLoading, setisLoading] = useState(false);
   useEffect(() => {
     setimage(route.params.source);
   }, [route]);
@@ -33,7 +35,11 @@ const CreatePostScreen = ({route, navigation}) => {
     if (image) {
       try {
         requestStoragePermission(() => CameraRoll.save(image, 'photo'));
-        uploadImage(image, user, caption, location, navigation);
+        if (route.params.type === 'video') {
+          uploadVideo(image, user, caption, location, navigation, setisLoading);
+        } else {
+          uploadImage(image, user, caption, location, navigation, setisLoading);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -75,18 +81,22 @@ const CreatePostScreen = ({route, navigation}) => {
       </View>
 
       <View style={styles.secondrow}>
-        <TextInput
-          style={styles.textinput}
-          label={'Add Location...'}
-          placeholder={'Add Location...'}
-          autoCorrect={false}
-          autoCapitalize="none"
-          placeholderTextColor="black"
-          selectionColor="blue"
-          onChangeText={setlocation}
-          value={location}
-          keyboardType={'default'}
-        />
+        {!isLoading ? (
+          <TextInput
+            style={styles.textinput}
+            label={'Add Location...'}
+            placeholder={'Add Location...'}
+            autoCorrect={false}
+            autoCapitalize="none"
+            placeholderTextColor="black"
+            selectionColor="blue"
+            onChangeText={setlocation}
+            value={location}
+            keyboardType={'default'}
+          />
+        ) : (
+          <Text>Uploading...</Text>
+        )}
       </View>
     </View>
   );

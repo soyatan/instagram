@@ -2,12 +2,15 @@ import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import styles from './styles';
 
-export const CaptureButton = ({onPress}) => {
+export const CaptureButton = ({onPress, onLongPress, isVideoRecording}) => {
   return (
-    <View style={styles.capturecontainer}>
-      <TouchableOpacity onPress={onPress} style={styles.capture}>
-        <Text style={{fontSize: 14}}> SNAP </Text>
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity
+      style={styles.capturecontainer}
+      onPress={onPress}
+      onLongPress={onLongPress}>
+      <View style={styles.capture}>
+        {isVideoRecording ? <View style={styles.capturevideo}></View> : null}
+      </View>
+    </TouchableOpacity>
   );
 };

@@ -13,6 +13,8 @@ import Eyedropper from './eyedropper.svg';
 import Check from './check.svg';
 import Checked from './checked.svg';
 import Flash_Auto from './auto-flash.svg';
+import Flash_On from './flash.svg';
+import Flash_Off from './flash-off.svg';
 import Add_User from './add-user.svg';
 import Video from './video.svg';
 import Three_Dots from './threedots.svg';
@@ -25,7 +27,7 @@ import Right from './right-arrow.svg';
 import Close from './close.svg';
 import Heart from './heart.svg';
 import Selectmultiple from './selectmultiple.svg';
-import Graycamera from './graycamera.svg';
+import SwitchCamera from './switchcamera.svg';
 
 export const SVGS = {
   Hide,
@@ -44,6 +46,8 @@ export const SVGS = {
   Check,
   Checked,
   Flash_Auto,
+  Flash_On,
+  Flash_Off,
   Add_User,
   Video,
   User,
@@ -54,6 +58,6 @@ export const SVGS = {
   Left,
   Right,
   Close,
-  Graycamera,
   Selectmultiple,
+  SwitchCamera,
 };

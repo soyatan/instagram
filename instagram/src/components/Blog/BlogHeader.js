@@ -18,11 +18,7 @@ export const BlogHeader = () => {
             })
           }
         />
-        <TouchableIcon
-          name={'Like'}
-          scale={1.1}
-          onPress={() => navigation.navigate('Photo')}
-        />
+        <TouchableIcon name={'Like'} scale={1.1} />
         <TouchableIcon name={'Message'} scale={1.2} />
       </View>
     </View>

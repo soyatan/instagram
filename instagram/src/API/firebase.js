@@ -13,7 +13,7 @@ import {fetchPostsRequest} from './../redux/postsReducer';
 
 const usersCollection = firestore().collection('Users');
 
-export const savePost = (link, caption, userId, location, navigation) => {
+export const savePost = (link, caption, userId, location, navigation, type) => {
   const childPath = Math.random().toString(36);
   let newPost = {};
   newPost.link = link;
@@ -23,6 +23,7 @@ export const savePost = (link, caption, userId, location, navigation) => {
   newPost.comments = [];
   newPost.location = location;
   newPost.postdate = Date.now();
+  newPost.type = type;
 
   firestore()
     .collection('Posts')

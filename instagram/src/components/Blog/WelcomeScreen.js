@@ -23,7 +23,6 @@ export const WelcomeScreen = ({navigation}) => {
   const posts = useSelector(postsSelector);
   const user = useSelector(userSelector);
   const popularusers = useSelector(popularUserSelector);
-
   const switchFollowing = userId => {
     dispatch(followUserRequest(user.userId, userId));
   };

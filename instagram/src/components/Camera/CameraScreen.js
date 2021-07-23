@@ -16,13 +16,42 @@ import {CameraGrid} from './CameraGrid';
 import ImagePicker from 'react-native-image-crop-picker';
 import {useSelector} from 'react-redux';
 import {userSelector} from '../../redux/userReducer';
+import {FlashContainer} from './FlashContainer';
+import {SwitchCameraContainer} from './SwitchCameraContainer';
+import {requestStoragePermission} from './../../API/requestPermission';
+import CameraRoll from '@react-native-community/cameraroll';
 
 const CameraScreen = ({route, navigation}) => {
-  const user = useSelector(userSelector);
-
+  const flashOptions = [
+    RNCamera.Constants.FlashMode.auto,
+    RNCamera.Constants.FlashMode.on,
+    RNCamera.Constants.FlashMode.off,
+  ];
+  const [isVideoRecording, setIsVideoRecording] = useState(false);
+  const [cameraMode, setcameraMode] = useState(RNCamera.Constants.Type.back);
+  const [flashMode, setflashMode] = useState(flashOptions[0]);
+  const [isPreview, setIsPreview] = useState(false);
+  const [videoSource, setVideoSource] = useState(null);
   const [imageUri, setimageUri] = useState('');
-  const [isTaking, setisTaking] = useState(true);
   const camera = useRef();
+
+  const cycleFlashOptions = () => {
+    if (flashMode === flashOptions[0]) {
+      setflashMode(flashOptions[1]);
+    } else if (flashMode === flashOptions[1]) {
+      setflashMode(flashOptions[2]);
+    } else if (flashMode === flashOptions[2]) {
+      setflashMode(flashOptions[0]);
+    }
+  };
+
+  const switchCamera = () => {
+    if (cameraMode === RNCamera.Constants.Type.back) {
+      setcameraMode(RNCamera.Constants.Type.front);
+    } else {
+      setcameraMode(RNCamera.Constants.Type.back);
+    }
+  };
 
   useEffect(() => {
     if (imageUri) {
@@ -34,6 +63,18 @@ const CameraScreen = ({route, navigation}) => {
       //navigation.navigate('Post', {uri: imageUri});
     }
   }, [imageUri]);
+
+  useEffect(() => {
+    if (videoSource) {
+      if (route.params.type === 'post') {
+        //requestStoragePermission(() => CameraRoll.save(videoSource, 'video'));
+      }
+      navigation.navigate('Post', {
+        screen: 'PostEdit',
+        params: {source: videoSource, type: 'video'},
+      });
+    }
+  }, [videoSource]);
 
   const editImagePost = async () => {
     await ImagePicker.openCropper({
@@ -78,7 +119,6 @@ const CameraScreen = ({route, navigation}) => {
         console.log(error);
       });
   };
-
   const takePicture = async function () {
     console.log('CHEESE');
     if (camera) {
@@ -95,15 +135,59 @@ const CameraScreen = ({route, navigation}) => {
         });
     }
   };
+  const _handlePress = () => {
+    if (isVideoRecording) {
+      stopVideoRecording();
+    } else {
+      takePicture();
+    }
+  };
 
+  const _handleLongPress = () => {
+    if (!isVideoRecording && route.params.type === 'post') {
+      recordVideo();
+    }
+  };
+  const recordVideo = async () => {
+    if (camera) {
+      console.log('we are recording');
+      try {
+        const videoRecordPromise = camera.current.recordAsync({
+          targetBitRate: 1000 * 1000 * 2,
+        });
+        if (videoRecordPromise) {
+          setIsVideoRecording(true);
+          const data = await videoRecordPromise;
+          const source = data.uri;
+          if (source) {
+            setIsPreview(true);
+            console.log('video source', source);
+            setVideoSource(source);
+            setIsVideoRecording(false);
+          }
+        }
+      } catch (error) {
+        console.warn(error);
+        setIsVideoRecording(false);
+      }
+    }
+  };
+  const stopVideoRecording = () => {
+    if (camera) {
+      setIsPreview(false);
+
+      camera.current.stopRecording();
+    }
+  };
   return (
     <View style={styles.cameracontainer}>
       <RNCamera
         ref={camera}
         style={styles.preview}
-        type={RNCamera.Constants.Type.back}
-        flashMode={RNCamera.Constants.FlashMode.on}
+        type={cameraMode}
+        flashMode={flashMode}
         captureAudio={false}
+        defaultVideoQuality={RNCamera.Constants.VideoQuality['480p']}
         androidCameraPermissionOptions={{
           title: 'Permission to use camera',
           message: 'We need your permission to use your camera',
@@ -118,9 +202,20 @@ const CameraScreen = ({route, navigation}) => {
         }}>
         {({camera, status, recordAudioPermissionStatus}) => {
           if (status !== 'READY') return <Text>Waiting</Text>;
-          return <CaptureButton onPress={() => takePicture()} />;
+          return (
+            <CaptureButton
+              onPress={() => _handlePress()}
+              onLongPress={() => _handleLongPress()}
+              isVideoRecording={isVideoRecording}
+            />
+          );
         }}
       </RNCamera>
+      <FlashContainer
+        onPress={() => cycleFlashOptions()}
+        flashMode={flashMode}
+      />
+      <SwitchCameraContainer onPress={() => switchCamera()} />
       <CameraGrid />
     </View>
   );
