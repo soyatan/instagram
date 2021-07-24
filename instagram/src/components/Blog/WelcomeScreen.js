@@ -9,11 +9,12 @@ import styles from './styles';
 import {UserCard} from './UserCard';
 import {fetchPostsRequest, postsSelector} from './../../redux/postsReducer';
 import BottomModal from './BottomModal';
+
 import {
   fetchPopularUsersRequest,
   popularUserSelector,
 } from './../../redux/popularUserReducer';
-
+import {fetchStoriesRequest, storySelector} from '../../redux/storyReducer';
 const WelcomeScreen = ({navigation}) => {
   const [isNew, setisNew] = useState(true);
   const [initializing, setinitializing] = useState(false);
@@ -22,6 +23,8 @@ const WelcomeScreen = ({navigation}) => {
   const [isModalShown, setisModalShown] = useState(false);
   const posts = useSelector(postsSelector);
   const user = useSelector(userSelector);
+  const stories = useSelector(storySelector);
+
   const popularusers = useSelector(popularUserSelector);
   const switchFollowing = userId => {
     dispatch(followUserRequest(user.userId, userId));
@@ -30,6 +33,7 @@ const WelcomeScreen = ({navigation}) => {
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       dispatch(fetchPostsRequest());
+      dispatch(fetchStoriesRequest());
     });
     return unsubscribe;
   }, [navigation]);
@@ -53,7 +57,13 @@ const WelcomeScreen = ({navigation}) => {
   return (
     <>
       <View style={styles.container}>
-        <StoryContainer selfphotolink={user.pplink} navigation={navigation} />
+        <StoryContainer
+          selfphotolink={user.pplink}
+          selfname={user.userName}
+          navigation={navigation}
+          stories={stories}
+          selfid={user.userId}
+        />
         {initializing === 'welcome' && popularusers.length > 1 ? (
           <>
             <Text style={styles.bigblacktext}>Welcome to Instagram</Text>

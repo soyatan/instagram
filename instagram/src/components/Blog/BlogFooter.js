@@ -1,12 +1,15 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {View, Text} from 'react-native';
 import {Icon} from '../../Assets/Svgs/icon';
 import styles from './styles';
 import {TouchableIcon} from './../../Assets/Svgs/touchableIcon';
-import {useNavigation} from '@react-navigation/native';
+import {
+  useNavigation,
+  useNavigationState,
+  useRoute,
+} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import {userSelector} from '../../redux/userReducer';
-import {ProfilePhotoSmaller} from './ProfilePhotoSmaller';
 import {ProfilePhotoHeader} from './ProfilePhotoHeader';
 import {selfPostsSelector} from './../../redux/selfPostsReducer';
 

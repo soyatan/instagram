@@ -89,7 +89,11 @@ const NewPostScreen = ({route, navigation}) => {
           pressable={true}></AuthButton>
         <AuthButton
           onPress={() => navigation.navigate('Camera', {type: 'post'})}
-          label={'Add a Photo/Video'}
+          label={'Add a Photo/Video Post'}
+          pressable={true}></AuthButton>
+        <AuthButton
+          onPress={() => navigation.navigate('Camera', {type: 'story'})}
+          label={'Add a Story'}
           pressable={true}></AuthButton>
       </View>
     </View>

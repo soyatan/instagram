@@ -1,17 +1,19 @@
 import React from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, Image, TouchableOpacity} from 'react-native';
 import {Icon} from '../../Assets/Svgs/icon';
 import styles from './styles';
 import {TouchableIcon} from './../../Assets/Svgs/touchableIcon';
 
-export const StoryCover = () => {
+export const StoryCover = ({source, onPress, username}) => {
   return (
-    <View style={styles.storycover}>
+    <TouchableOpacity style={styles.storycover} onPress={onPress}>
       <View style={styles.storycircleouter}>
-        <View style={styles.storycircleinner}></View>
+        <View style={styles.storycircleinner}>
+          <Image style={styles.filledimage} source={{uri: source}} />
+        </View>
       </View>
 
-      <Text>Ahmetcan</Text>
-    </View>
+      <Text style={styles.selftext}>{username}</Text>
+    </TouchableOpacity>
   );
 };

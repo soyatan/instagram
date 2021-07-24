@@ -42,14 +42,15 @@ export function* getStoriesFromDb(id) {
       .get()
       .then(function (snapshot) {
         snapshot.forEach(snapshotquery => {
-          //console.log(snapshotquery.data());
-          stories.push({
-            ...snapshotquery.data(),
-            posterId: user.uid,
-            posterName: user.username,
-            pplink: user.pplink,
-            postId: snapshotquery.id,
-          });
+          if (snapshotquery.data()) {
+            stories.push({
+              ...snapshotquery.data(),
+              posterId: user.uid,
+              posterName: user.username,
+              pplink: user.pplink,
+              postId: snapshotquery.id,
+            });
+          }
         });
         return stories;
       });
@@ -97,8 +98,8 @@ export function* setFetchList() {
   const finalList = yield all(
     usersToFetch.map(pplid => call(getStoriesFromDb, pplid)),
   );
-  const stories = yield call(mergeLists, finalList);
-  yield put(setStories(stories));
+  //const stories = yield call(mergeLists, finalList);
+  yield put(setStories(finalList));
 }
 
 export function* createListToFetchFromDb() {

@@ -8,6 +8,7 @@ import CreatePostScreen from './CreatePostScreen';
 import NewPostScreen from './NewPostScreen';
 import CreatePPScreen from './CreatePPScreen';
 import CreateStoryScreen from './CreateStoryScreen';
+import {StoryScreen} from '../Story/StoryScreen';
 
 const Post = createStackNavigator();
 
@@ -18,8 +19,8 @@ const PostContainer = () => {
         <Post.Screen name="PostEdit" component={CreatePostScreen} />
         <Post.Screen name="StoryEdit" component={CreateStoryScreen} />
         <Post.Screen name="NewPost" component={NewPostScreen} />
-
         <Post.Screen name="PPEdit" component={CreatePPScreen} />
+        <Post.Screen name="Story" component={StoryScreen} />
       </Post.Navigator>
     </>
   );

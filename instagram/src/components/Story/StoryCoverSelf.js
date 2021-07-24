@@ -4,14 +4,14 @@ import {Icon} from '../../Assets/Svgs/icon';
 import styles from './styles';
 import {TouchableIcon} from '../../Assets/Svgs/touchableIcon';
 
-export const StoryCoverSelf = ({source, onPress}) => {
+export const StoryCoverSelf = ({source, onPress, selfname}) => {
   return (
     <View style={styles.storycover}>
-      <TouchableOpacity onPress={onPress} style={styles.storycircleinner}>
+      <TouchableOpacity onPress={onPress} style={styles.storycircleinnerself}>
         <Image style={styles.filledimage} source={{uri: source}} />
       </TouchableOpacity>
 
-      <Text>Ahmetcan</Text>
+      <Text style={styles.selftext}>{selfname}</Text>
     </View>
   );
 };
