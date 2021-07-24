@@ -21,25 +21,39 @@ import {PhotoPreview} from '../Camera/PhotoPreview';
 import {uploadImage, uploadVideo} from '../../API/storageFunctions';
 
 const CreateStoryScreen = ({route, navigation}) => {
-  console.log('welcome to create story');
   const user = useSelector(userSelector);
   const [location, setlocation] = useState('');
   const [image, setimage] = useState(null);
   const [caption, setcaption] = useState('');
+  const [notes, setnotes] = useState('');
 
   const [isLoading, setisLoading] = useState(false);
   useEffect(() => {
     setimage(route.params.source);
   }, [route]);
 
-  const saveToRollandSendPost = async () => {
+  const saveToRollandSendStory = async () => {
     if (image) {
       try {
         requestStoragePermission(() => CameraRoll.save(image, 'photo'));
         if (route.params.type === 'video') {
-          uploadVideo(image, user, caption, location, navigation, setisLoading);
+          uploadVideoStory(
+            image,
+            user,
+            caption,
+            location,
+            navigation,
+            setisLoading,
+          );
         } else {
-          uploadImage(image, user, caption, location, navigation, setisLoading);
+          uploadImageStory(
+            image,
+            user,
+            caption,
+            location,
+            navigation,
+            setisLoading,
+          );
         }
       } catch (error) {
         console.log(error);
@@ -57,11 +71,11 @@ const CreateStoryScreen = ({route, navigation}) => {
           name={'Left'}
           scale={1.4}
         />
-        <Text style={styles.bigblacktext}>New Post</Text>
+        <Text style={styles.bigblacktext}>New Story</Text>
         <TouchableIcon
           name={'Checked'}
           scale={1.4}
-          onPress={() => saveToRollandSendPost()}
+          onPress={() => saveToRollandSendStory()}
         />
       </View>
       <View style={styles.firstrow}>
@@ -93,6 +107,24 @@ const CreateStoryScreen = ({route, navigation}) => {
             selectionColor="blue"
             onChangeText={setlocation}
             value={location}
+            keyboardType={'default'}
+          />
+        ) : (
+          <Text>Uploading...</Text>
+        )}
+      </View>
+      <View style={styles.secondrow}>
+        {!isLoading ? (
+          <TextInput
+            style={styles.textinput}
+            label={'Add Story Notes...'}
+            placeholder={'Add Story Notes...'}
+            autoCorrect={false}
+            autoCapitalize="none"
+            placeholderTextColor="black"
+            selectionColor="blue"
+            onChangeText={setnotes}
+            value={notes}
             keyboardType={'default'}
           />
         ) : (

@@ -39,7 +39,6 @@ const CameraScreen = ({route, navigation}) => {
   useEffect(() => {
     if (route.params.type === 'story') {
       setisStory(true);
-      console.log('ITS STORY');
     }
   }, [route]);
 
@@ -144,7 +143,7 @@ const CameraScreen = ({route, navigation}) => {
         //requestStoragePermission(() => CameraRoll.save(image.path, 'photo'));
         //uploadImage(image.path, user);
         navigation.navigate('Post', {
-          screen: 'PPEdit',
+          screen: 'StoryEdit',
           params: {source: image.path},
         });
       })

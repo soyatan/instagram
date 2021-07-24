@@ -10,6 +10,7 @@ const VideoPlayer = ({source}) => {
       <Video
         source={{
           uri: source,
+          cache: true,
         }}
         style={{
           width: '100%',
