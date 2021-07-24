@@ -17,10 +17,22 @@ export default styles = StyleSheet.create({
     borderBottomColor: Colors.mainGray,
     borderBottomWidth: 0.4,
   },
+  storycontainer: {
+    //justifyContent: 'space-around',
+    //alignItems: 'center',
+    width: '100%',
+    flexDirection: 'row',
+    backgroundColor: Colors.lightGray,
+    borderBottomColor: Colors.mainGray,
+    borderBottomWidth: 0.4,
+  },
+
   storycover: {
     alignItems: 'center',
-    width: w * 0.2,
+    width: w * 0.17,
     height: w * 0.21,
+
+    justifyContent: 'center',
   },
   storycircleouter: {
     width: w * 0.13,
@@ -36,5 +48,10 @@ export default styles = StyleSheet.create({
     height: w * 0.11,
     borderRadius: w,
     borderWidth: 0.5,
+  },
+  filledimage: {
+    width: '100%',
+    height: '100%',
+    borderRadius: w,
   },
 });

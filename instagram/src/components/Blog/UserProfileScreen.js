@@ -4,7 +4,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {followUserRequest, userSelector} from '../../redux/userReducer';
 import {StoryContainer} from '../Story/StoryContainer';
 import {BlogHeader} from './BlogHeader';
-import {PostCard} from './PostCard';
 import styles from './styles';
 import {UserCard} from './UserCard';
 import {fetchPostsRequest, postsSelector} from '../../redux/postsReducer';

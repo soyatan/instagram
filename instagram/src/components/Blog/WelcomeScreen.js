@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {followUserRequest, userSelector} from '../../redux/userReducer';
 import {StoryContainer} from '../Story/StoryContainer';
 import {BlogHeader} from './BlogHeader';
-import {PostCard} from './PostCard';
+import PostCard from './PostCard';
 import styles from './styles';
 import {UserCard} from './UserCard';
 import {fetchPostsRequest, postsSelector} from './../../redux/postsReducer';
@@ -14,7 +14,7 @@ import {
   popularUserSelector,
 } from './../../redux/popularUserReducer';
 
-export const WelcomeScreen = ({navigation}) => {
+const WelcomeScreen = ({navigation}) => {
   const [isNew, setisNew] = useState(true);
   const [initializing, setinitializing] = useState(false);
 
@@ -53,7 +53,7 @@ export const WelcomeScreen = ({navigation}) => {
   return (
     <>
       <View style={styles.container}>
-        <StoryContainer />
+        <StoryContainer selfphotolink={user.pplink} navigation={navigation} />
         {initializing === 'welcome' && popularusers.length > 1 ? (
           <>
             <Text style={styles.bigblacktext}>Welcome to Instagram</Text>
@@ -97,3 +97,5 @@ export const WelcomeScreen = ({navigation}) => {
     </>
   );
 };
+
+export default React.memo(WelcomeScreen);

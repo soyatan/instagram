@@ -1,9 +1,4 @@
-const INITIAL_STATE = {
-  stories: [
-    {key: 1, isSeen: false},
-    {key: 2, isSeen: true},
-  ],
-};
+const INITIAL_STATE = [];
 
 //selector
 export const storySelector = state => state.storyState;

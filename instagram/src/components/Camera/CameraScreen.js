@@ -33,7 +33,15 @@ const CameraScreen = ({route, navigation}) => {
   const [isPreview, setIsPreview] = useState(false);
   const [videoSource, setVideoSource] = useState(null);
   const [imageUri, setimageUri] = useState('');
+  const [isStory, setisStory] = useState(false);
+
   const camera = useRef();
+  useEffect(() => {
+    if (route.params.type === 'story') {
+      setisStory(true);
+      console.log('ITS STORY');
+    }
+  }, [route]);
 
   const cycleFlashOptions = () => {
     if (flashMode === flashOptions[0]) {
@@ -59,20 +67,25 @@ const CameraScreen = ({route, navigation}) => {
         editImagePost();
       } else if (route.params.type === 'pp') {
         editImagePP();
+      } else if (route.params.type === 'story') {
+        editImageStory();
       }
-      //navigation.navigate('Post', {uri: imageUri});
     }
   }, [imageUri]);
 
   useEffect(() => {
     if (videoSource) {
       if (route.params.type === 'post') {
-        //requestStoragePermission(() => CameraRoll.save(videoSource, 'video'));
+        navigation.navigate('Post', {
+          screen: 'PostEdit',
+          params: {source: videoSource, type: 'video'},
+        });
+      } else if (route.params.type === 'story') {
+        navigation.navigate('Post', {
+          screen: 'StoryEdit',
+          params: {source: videoSource, type: 'video'},
+        });
       }
-      navigation.navigate('Post', {
-        screen: 'PostEdit',
-        params: {source: videoSource, type: 'video'},
-      });
     }
   }, [videoSource]);
 
@@ -99,6 +112,27 @@ const CameraScreen = ({route, navigation}) => {
   };
 
   const editImagePP = async () => {
+    await ImagePicker.openCropper({
+      path: imageUri,
+      width: 250,
+      height: 250,
+      cropping: true,
+      freeStyleCropEnabled: false,
+    })
+      .then(image => {
+        //requestStoragePermission(() => CameraRoll.save(image.path, 'photo'));
+        //uploadImage(image.path, user);
+        navigation.navigate('Post', {
+          screen: 'PPEdit',
+          params: {source: image.path},
+        });
+      })
+
+      .catch(error => {
+        console.log(error);
+      });
+  };
+  const editImageStory = async () => {
     await ImagePicker.openCropper({
       path: imageUri,
       width: 250,
@@ -146,6 +180,8 @@ const CameraScreen = ({route, navigation}) => {
   const _handleLongPress = () => {
     if (!isVideoRecording && route.params.type === 'post') {
       recordVideo();
+    } else if (!isVideoRecording && route.params.type === 'story') {
+      recordVideo();
     }
   };
   const recordVideo = async () => {
@@ -172,6 +208,7 @@ const CameraScreen = ({route, navigation}) => {
       }
     }
   };
+
   const stopVideoRecording = () => {
     if (camera) {
       setIsPreview(false);

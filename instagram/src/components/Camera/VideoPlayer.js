@@ -3,7 +3,7 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import {Icon} from '../../Assets/Svgs/icon';
 import styles from './styles';
 import Video from 'react-native-video';
-export const VideoPlayer = ({source}) => {
+const VideoPlayer = ({source}) => {
   const videoplay = useRef();
   return (
     <View style={{alignItems: 'center', flex: 1, justifyContent: 'center'}}>
@@ -21,3 +21,5 @@ export const VideoPlayer = ({source}) => {
     </View>
   );
 };
+
+export default React.memo(VideoPlayer);

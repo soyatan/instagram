@@ -16,11 +16,12 @@ import FinalizeScreen from './FinalizeScreen';
 import EmailScreen from './EmailScreen';
 
 import CameraScreen from '../Camera/CameraScreen';
-import {WelcomeScreen} from '../Blog/WelcomeScreen';
+
 import {BlogHeader} from '../Blog/BlogHeader';
 import {BlogFooter} from './../Blog/BlogFooter';
 import BlogContainer from '../Blog/BlogContainer';
 import HelpedScreen from './HelpedScreen';
+import WelcomeScreen from '../Blog/WelcomeScreen';
 
 const Auth = createStackNavigator();
 

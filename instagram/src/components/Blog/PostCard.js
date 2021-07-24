@@ -13,9 +13,9 @@ import MemoHeart from '../../Assets/Svgs/Heart';
 import MemoFavorite from './../../Assets/Svgs/Favorite';
 import {useDispatch} from 'react-redux';
 import {addCommentToPosts} from './../../redux/postsReducer';
-import {VideoPlayer} from '../Camera/VideoPlayer';
+import VideoPlayer from '../Camera/VideoPlayer';
 
-export const PostCard = ({
+const PostCard = ({
   item,
   isModalShown,
   setisModalShown,
@@ -239,3 +239,5 @@ export const PostCard = ({
     </>
   );
 };
+
+export default React.memo(PostCard);

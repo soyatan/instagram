@@ -7,7 +7,7 @@ import {Colors} from './../../constants/Colors';
 
 import styles from './styles';
 
-import {WelcomeScreen} from '../Blog/WelcomeScreen';
+import WelcomeScreen from '../Blog/WelcomeScreen';
 import {BlogHeader} from '../Blog/BlogHeader';
 import {BlogFooter} from './../Blog/BlogFooter';
 import CameraScreen from '../Camera/CameraScreen';
