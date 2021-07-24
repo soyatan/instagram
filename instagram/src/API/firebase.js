@@ -37,6 +37,35 @@ export const savePost = (link, caption, userId, location, navigation, type) => {
     });
 };
 
+export const saveStory = (
+  link,
+  caption,
+  userId,
+  location,
+  notes,
+  navigation,
+  type,
+) => {
+  const childPath = Math.random().toString(36);
+  let newPost = {};
+  newPost.link = link;
+  newPost.caption = caption;
+  newPost.location = location;
+  newPost.postdate = Date.now();
+  newPost.type = type;
+  newPost.notes = notes;
+
+  firestore()
+    .collection('Posts')
+    .doc(userId)
+    .collection('UserStories')
+    .doc(childPath)
+    .set(newPost)
+    .then(() => {
+      console.log('story created');
+      navigation.navigate('Welcome');
+    });
+};
 export const savePP = (link, userId, navigation, dispatch) => {
   firestore()
     .collection('Users')

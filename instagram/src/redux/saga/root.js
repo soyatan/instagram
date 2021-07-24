@@ -7,6 +7,7 @@ import postsSaga from './postsSaga';
 import fetchPopularUserSaga from './fetchPopularUserSaga';
 import followerSaga from './followerSaga';
 import countSelfPostsSaga from './countSelfPostsSaga';
+import storiesSaga from './storiesSaga';
 
 export default function* root() {
   yield all([
@@ -18,5 +19,6 @@ export default function* root() {
     ...fetchPopularUserSaga,
     ...followerSaga,
     ...countSelfPostsSaga,
+    ...storiesSaga,
   ]);
 }

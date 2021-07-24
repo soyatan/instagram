@@ -14,8 +14,51 @@ import {
 import storage from '@react-native-firebase/storage';
 import {useDispatch, useSelector} from 'react-redux';
 import {userSelector} from '../redux/userReducer';
-import {savePost, savePP} from './firebase';
+import {savePost, savePP, saveStory} from './firebase';
 import {stat} from 'react-native-fs';
+
+export const uploadImageStory = async (
+  image,
+  user,
+  caption,
+  location,
+  notes,
+  navigation,
+  setisLoading,
+) => {
+  const childPath = `${user.userId}/${Math.random().toString(36)}`;
+
+  const uploadUri =
+    Platform.OS === 'ios' ? image.replace('file://', '') : image;
+
+  const task = storage().ref(`stories`).child(childPath).putFile(uploadUri);
+  setisLoading(true);
+  const taskProgress = snapshot => {
+    //console.log(`transferred: ${snapshot.bytesTransfered}`);
+  };
+
+  const taskCompleted = snapshot => {
+    console.log('taskcompleted');
+    snapshot.ref.getDownloadURL().then(snapshot => {
+      saveStory(
+        snapshot,
+        caption,
+        user.userId,
+        location,
+        notes,
+        navigation,
+        'photo',
+      );
+      setisLoading(false);
+    });
+  };
+
+  const taskError = snapshot => {
+    setisLoading(false);
+  };
+  task.on('state_changed', taskProgress, taskError, taskCompleted);
+  // set progress state
+};
 export const uploadImage = async (
   image,
   user,
@@ -49,12 +92,53 @@ export const uploadImage = async (
   task.on('state_changed', taskProgress, taskError, taskCompleted);
   // set progress state
 };
+export const uploadVideoStory = async (
+  video,
+  user,
+  caption,
+  location,
+  notes,
+  navigation,
+  setisLoading,
+) => {
+  const childPath = `${user.userId}/${Math.random().toString(36)}`;
 
+  const uploadUri =
+    Platform.OS === 'ios' ? video.replace('file://', '') : video;
+
+  const task = storage().ref(`stories`).child(childPath).putFile(uploadUri);
+  setisLoading(true);
+  const taskProgress = snapshot => {
+    //console.log(`transferred: ${snapshot.bytesTransfered}`);
+  };
+
+  const taskCompleted = snapshot => {
+    snapshot.ref.getDownloadURL().then(snapshot => {
+      saveStory(
+        snapshot,
+        caption,
+        user.userId,
+        location,
+        notes,
+        navigation,
+        'video',
+      );
+      setisLoading(false);
+    });
+  };
+
+  const taskError = snapshot => {
+    setisLoading(false);
+  };
+  task.on('state_changed', taskProgress, taskError, taskCompleted);
+  // set progress state
+};
 export const uploadVideo = async (
   video,
   user,
   caption,
   location,
+  notes,
   navigation,
   setisLoading,
 ) => {

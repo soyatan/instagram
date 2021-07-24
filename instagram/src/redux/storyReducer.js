@@ -6,14 +6,19 @@ export const storySelector = state => state.storyState;
 export const SET_STORIES = 'set/story';
 export const UPDATE_STORY = 'update/story';
 export const ADD_STORY = 'add/story';
+export const FETCH_STORIES_REQUEST = 'fetch/stories/request';
 
-export const setStories = (userName, userId, loginType) => {
+export const fetchStoriesRequest = () => {
+  return {
+    type: FETCH_STORIES_REQUEST,
+  };
+};
+
+export const setStories = stories => {
   return {
     type: SET_STORIES,
     payload: {
-      userName,
-      userId,
-      loginType,
+      stories,
     },
   };
 };
@@ -40,14 +45,12 @@ export const addStory = errorMessage => {
 
 export const storyReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case ADD_STORY:
-      return {
-        ...state,
-        loginType: action.payload.loginType,
-        userId: action.payload.userId,
-        userName: action.payload.userName,
-        isLoggedIn: true,
-      };
+    case SET_STORIES:
+      const storiesToAdd = action.payload.stories;
+      const newSortedStoryList = storiesToAdd.sort((a, b) =>
+        a.postdate > b.postdate ? -1 : 1,
+      );
+      return newSortedStoryList;
 
     default:
       return state;

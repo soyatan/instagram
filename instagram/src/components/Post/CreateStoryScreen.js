@@ -18,7 +18,12 @@ import styles from './styles';
 import {TouchableIcon} from '../../Assets/Svgs/touchableIcon';
 import {ProfilePhotoSmall} from '../Blog/ProfilePhotoSmall';
 import {PhotoPreview} from '../Camera/PhotoPreview';
-import {uploadImage, uploadVideo} from '../../API/storageFunctions';
+import {
+  uploadImage,
+  uploadImageStory,
+  uploadVideo,
+} from '../../API/storageFunctions';
+import {uploadVideoStory} from './../../API/storageFunctions';
 
 const CreateStoryScreen = ({route, navigation}) => {
   const user = useSelector(userSelector);
@@ -42,6 +47,7 @@ const CreateStoryScreen = ({route, navigation}) => {
             user,
             caption,
             location,
+            notes,
             navigation,
             setisLoading,
           );
@@ -51,6 +57,7 @@ const CreateStoryScreen = ({route, navigation}) => {
             user,
             caption,
             location,
+            notes,
             navigation,
             setisLoading,
           );
